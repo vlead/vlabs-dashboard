@@ -13,21 +13,37 @@
 
 	<!-- Nav tabs -->
   	<ul class="nav nav-tabs" role="tablist">
-	    <li role="presentation" class="active"><a href="#search" aria-controls="search" role="tab" data-toggle="tab">Search Labs</a></li>
-	    <li role="presentation"><a href="#lab" aria-controls="lab" role="tab" data-toggle="tab" onclick="showLabs(this.value)">Labs</a></li>
-	    <li role="presentation"><a href="#inst" aria-controls="inst" role="tab" data-toggle="tab" onclick="showInstitutes(this.value)">Institutes</a></li>
-	    <li role="presentation"><a href="#disc" aria-controls="disc" role="tab" data-toggle="tab" onclick="showDisciplines(this.value)">Disciplines</a></li>
-	    <li role="presentation"><a href="#dev" aria-controls="dev" role="tab" data-toggle="tab" onclick="showDevelopers(this.value)">Developers</a></li>
-	    <li role="presentation"><a href="#tech" aria-controls="tech" role="tab" data-toggle="tab" onclick="showTechnologies(this.value)">Technologies</a></li>
-	   <!--  <li role="presentation"><a href="#phase2" aria-controls="phase2" role="tab" data-toggle="tab">Labs Identified for Phase-II</a></li> -->
+	    <li role="presentation" class="active"><a href="#search"
+	    aria-controls="search" role="tab" data-toggle="tab">Search
+	    Labs</a></li>
+	    <li role="presentation"><a href="#lab" aria-controls="lab"
+	    role="tab" data-toggle="tab"
+	    onclick="showLabs(this.value)">Labs</a></li>
+	    <li role="presentation"><a href="#inst"
+	    aria-controls="inst" role="tab" data-toggle="tab"
+	    onclick="showInstitutes(this.value)">Institutes</a></li>
+	    <li role="presentation"><a href="#disc"
+	    aria-controls="disc" role="tab" data-toggle="tab"
+	    onclick="showDisciplines(this.value)">Disciplines</a></li>
+	    <li role="presentation"><a href="#dev" aria-controls="dev"
+	    role="tab" data-toggle="tab"
+	    onclick="showDevelopers(this.value)">Developers</a></li>
+	    <li role="presentation"><a href="#tech"
+	    aria-controls="tech" role="tab" data-toggle="tab"
+	    onclick="showTechnologies(this.value)">Technologies</a></li>
+	   <!-- <li role="presentation"><a href="#phase2"
+	   aria-controls="phase2" role="tab" data-toggle="tab">Labs
+	   Identified for Phase-II</a></li> -->
   	</ul>
 
   	<!-- Tab panes -->
   	<div class="tab-content">
-   	<div role="search" class="tab-pane active" id="search"><br><br>
+   	<div role="search" class="tab-pane active"
+   	id="search"><br><br>
     <form name="myform" class="form-horizontal">
 	    <div class="form-group">
-	    <label class="col-sm-5 control-label">Select Institute:</label>
+	    <label class="col-sm-5 control-label">Select
+	    Institute:</label>
 	    <div class='col-md-2'>
 	        <select class="form-control" name ="selectbyinstitute">
 	        <option value="0">None</option>
@@ -43,46 +59,52 @@
 	        <option value="10">IIT-Madras</option>
 	        <option value="11"> IIT-Roorkee</option>
 	        <option value="12">NIT-K</option>
-	      </select>
+	  	    </select>
 	    </div>
-	  </div>
+	  	</div>
 
 	  <div class="form-group">
-	  <label class="col-sm-5 control-label">Select discipline name:</label>
+	  <label class="col-sm-5 control-label">Select discipline
+	  name:</label>
 	  
 	  <div class='col-md-2'>
 	      <select class="form-control" name ="selectbydiscipline">
 	      <option value="0">None</option>
 	      <option value="1">Aerospace Engineering</option>
-	      <option value="2">Biotechnology and Biomedical Engineering</option>
+	      <option value="2">Biotechnology and Biomedical
+	      Engineering</option>
 	      <option value="3">Chemical Engineering</option>
 	      <option value="4">Chemical Sciences</option>
 	      <option value="5">Civil Engineering</option>
-	      <option value="6">Computer Science and Engineering</option>
+	      <option value="6">Computer Science and
+	      Engineering</option>
 	      <option value="7">Electrical Engineering</option>
-	      <option value="8">Electronics and Communications</option>
+	      <option value="8">Electronics and
+	      Communications</option>
 	      <option value="9">Humanities</option>
 	      <option value="10"> Mechanical Engineering</option>
 	      <option value="11">Physical Sciences</option>
 	      <option value="12">Textile Department</option>
-	    </select>
+	      </select>
 	  </div>
 	  </div>
 
 	  <div class="form-group">
-	  <label  class="col-sm-5 control-label">Select Status:</label>
+	  <label class="col-sm-5 control-label">Select Status:</label>
 	  <div class='col-md-2'>
 	      	<select class="form-control"name ="selectbystatus">
 	    	<option value="None">None</option>
-	  	    <option value="Hosted">Hosted</option>
+	  	<option value="Hosted">Hosted</option>
 	    	<option value="Not Hosted">Not Hosted</option>
-	    	<option value="Hosted with simulations">Hosted with simulations</option>
+	    	<option value="Hosted with simulations">Hosted with
+	    	simulations</option>
 	    	</select>
 	  </div>
 	  </div>
 
 	  <div class="form-group">
-	  <label class="col-sm-5 control-label">Select Integration Level:</label>
+	  <label class="col-sm-5 control-label">Select Integration
+	  Level:</label>
 	  <div class='col-md-2'>
 	      <select class="form-control" name = "selectbyintegrationlevel">
 	      <option value="None">None</option>
@@ -92,124 +114,135 @@
 	      <option value="3">3</option>
 	      <option value="4">4</option>
 	      <option value="5">5</option>
-	    </select>
+	      </select>
 	  </div>
 	  </div>
 
 	  <div class="form-group">
-	    <div class="col-sm-offset-5 col-sm-1">
-	    	<a href="javascript:showdisplay(this.value)" class="btn btn-primary" value="test">Search</a>
-	    </div>
+	  	<div class="col-sm-offset-5 col-sm-1">
+	    	<a href="javascript:showdisplay(this.value)"
+	    	class="btn btn-primary" value="test">Search</a>
+	  	</div>
 	  </div>
 	</form>
-</div>
+	</div>
    
     <div role="lab" class="tab-pane" id="lab">
     	<script type="text/template" id="labsview-root-template">
-    	<table class="table striped-table" id="labs-table">
-			<tr>Total number of labs: <%= this.collection.length %> </tr>
-			<tr>
-				<th> Lab Id </th>
-				<th> Lab Name </th>
-			</tr>
-		</table>
-	</script>
-	<script type="text/template" id="lab-model-template">
+    		<table class="table striped-table" id="labs-table">
+				<tr>Total number of labs:
+				<%= this.collection.length %> </tr>
+				<tr>
+					<th> Lab Id </th>
+					<th> Lab Name </th>
+				</tr>
+			</table>
+		</script>
+		<script type="text/template" id="lab-model-template">
 		<tr>
 			<td> <%= id %> </td>
 			<td> <%= name %> </td>
 		</tr>
-	</script>
+		</script>
 	</div>
     
     <div role="tabpanel" class="tab-pane" id="inst" >
     	<script type="text/template" id="institutesview-root-template">
-		<table class="table striped-table" id="institutes-table">
-		    <tr>Total number of institutes: <%= this.collection.length %> </tr>
-			<tr>
-				<th> Institute Name </th>
-			</tr>
-		</table>
-	</script>
-	<script type="text/template" id="institute-model-template">
+			<table class="table striped-table" id="institutes-table">
+		    	<tr>Total number of institutes:
+		    	<%= this.collection.length %> </tr>
+				<tr>
+					<th> Institute Name </th>
+				</tr>
+			</table>
+		</script>
+		<script type="text/template" id="institute-model-template">
 		<tr>
 			<td> <%= name %> </td>
 		</tr>
-	</script>
+		</script>
     </div>
 
 
     <div role="tabpanel" class="tab-pane" id="disc">
     	<script type="text/template" id="disciplinesview-root-template">
-		<table class="table striped-table" id="disciplines-table">
-			<tr>Total number of disciplines: <%= this.collection.length %> </tr>
+			<table class="table striped-table" id="disciplines-table">
+				<tr>Total number of disciplines:
+				<%= this.collection.length %> </tr>
+				<tr>
+					<th> Discipline Name </th>
+				</tr>
+			</table>
+		</script>
+		<script type="text/template" id="discipline-model-template">
 			<tr>
-				<th> Discipline Name </th>
+				<td> <%= name %> </td>
 			</tr>
-		</table>
-	</script>
-	<script type="text/template" id="discipline-model-template">
-		<tr>
-			<td> <%= name %> </td>
-		</tr>
-	</script>
+		</script>
 
-  </div>
+ 	 </div>
 
 
-   <div role="tabpanel" class="tab-pane" id="dev"> 
-   	<script type="text/template" id="developersview-root-template">
-		<table class="table striped-table" id="developers-table">
-			<tr>Total number of developers: <%= this.collection.length %> </tr>
+   	<div role="tabpanel" class="tab-pane" id="dev"> 
+   		<script type="text/template" id="developersview-root-template">
+			<table class="table striped-table" id="developers-table">
+				<tr>Total number of developers:
+				<%= this.collection.length %> </tr>
+				<tr>
+					<th> Institute Id</th>
+					<th> Developer Name </th>
+					<th> Email ID </th>
+				</tr>
+			</table>
+		</script>
+		<script type="text/template" id="developer-model-template">
 			<tr>
-				<th> Institute Id</th>
-				<th> Developer Name </th>
-				<th> Email ID </th>
+				<td> <%= instituteid %> </td>
+				<td> <%= developername %> </td>
+				<td> <%= emailid %> </td>
 			</tr>
-		</table>
-	</script>
-	<script type="text/template" id="developer-model-template">
-		<tr>
-			<td> <%= instituteid %> </td>
-			<td> <%= developername %> </td>
-			<td> <%= emailid %> </td>
-		</tr>
-	</script>
+		</script>
 
-  </div>
+  	</div>
 
     <div role="tabpanel" class="tab-pane" id="tech"> 
-<script type="text/template" id="technologyview-root-template">
-		<table class="table striped-table" id="technologies-table">
-			<tr>Total number of technologies: <%= this.collection.length %> </tr>
+		<script type="text/template" id="technologyview-root-template">
+			<table class="table striped-table" id="technologies-table">
+				<tr>Total number of technologies:
+				<%= this.collection.length %> </tr>
+				<tr>
+					<th> Technology Id </th>
+					<th> Technology Name </th>
+					<th> FOSS </th>
+				</tr>
+			</table>
+		</script>
+		<script type="text/template" id="technology-model-template">
 			<tr>
-				<th> Technology Id </th>
-				<th> Technology Name </th>
-				<th> FOSS </th>
+				<td> <%= id %> </td>
+				<td> <%= name %> </td>
+				<td> <%= foss %> </td>
 			</tr>
-		</table>
-	</script>
-	<script type="text/template" id="technology-model-template">
-		<tr>
-			<td> <%= id %> </td>
-			<td> <%= name %> </td>
-			<td> <%= foss %> </td>
-		</tr>
-	</script>
+		</script>
 
 
     </div>
-    <div role="tabpanel" class="tab-pane" id="phase2">Total number of labs identifield for phase-II: </div>
+    <div role="tabpanel" class="tab-pane" id="phase2">Total number of
+    labs identifield for phase-II: </div>
   </div>
 </div>
 
 <!-- Scripts -->
-	<script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
-	<script type="text/javascript" src="lib/underscore-min.js"></script>
-	<script type="text/javascript" src="lib/backbone-min.js"></script>
+	<script type="text/javascript"
+	src="lib/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript"
+	src="lib/underscore-min.js"></script>
+	<script type="text/javascript"
+	src="lib/backbone-min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="main.js"></script>
+	<script type="text/javascript" src="labs.js"></script>
 	<script type="text/template" id="labsview-root-template">
 	
 </body>
 </html>
+
