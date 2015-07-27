@@ -6,23 +6,34 @@
   The dashboard should provide every related information of a lab that is
   either hosted or is in the list for hosting.  
 * Requirements
+  
   1. The information of the labs should be current and relevant.
-     Information should contain :
-     - sources url
-     - hosted url
-     - client side dependencies
-     - server side dependencies
-     - institutes, author details and other details.
-  2. When a lab is deployed the dashboard should reflect the updated
-     information.  This means integration with ADS.
-  3. This information retreival and storage of data a lab should be done via
+     
+  2. Ability to run different queries on the lab data
+     examples:
+     + what are the hosted labs of an institute
+     + what are the labs from an institute that are at level 0?
+     + what are the technologies used by an experiment of a particular lab?
+
+     
+  3. This information retrieval and storage of data of a lab should be done via
      APIs and some of these APIs should also be made availabe to other services
      to use them.
-  4. Compatibility of Technologies.
+
+  4. Forms interface to update lab data.
+
   5. The underlying data store should be able to incorporate expanding data
      information of a lab.
+
+  6. When a lab is deployed, the dashboard should reflect the updated
+     information.  This means integration with ADS.
+     
+  7. Compatibility of Technologies. 
 
 * Design
 * Implementation
 * Test Cases
-* Design dicsussions
+* Design discussions
+* Releases
+**  V0.1.0
+    This release will satisfy the requirements 1, 2, & 3
