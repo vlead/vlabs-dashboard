@@ -6,34 +6,39 @@
   The dashboard should provide every related information of a lab that is
   either hosted or is in the list for hosting.  
 * Requirements
-  
-  1. The information of the labs should be current and relevant.
-     
-  2. Ability to run different queries on the lab data
-     examples:
+
+  1. Ability to view virtual lab information - related to labs, institutes, disciplines,
+     technologies, developers, etc.
+
+  2. Ability to run different queries on this virtual lab information.
      + what are the hosted labs of an institute
      + what are the labs from an institute that are at level 0?
      + what are the technologies used by an experiment of a particular lab?
 
+  3. Hosting - whether a lab is hosted at IIIT or AWS, or Badal or at a
+     respective university
+
+  4. Provide an interface to update virtual lab information to keep it current
+     and relevant. Only authorized users will be able to update the information.
      
-  3. This information retrieval and storage of data of a lab should be done via
-     APIs and some of these APIs should also be made availabe to other services
-     to use them.
+  5. To get and save data, at the back-end, it connects to the dataservice
+     (which is already part of the Central Platform services).
 
-  4. Forms interface to update lab data.
-
-  5. The underlying data store should be able to incorporate expanding data
+  6. The underlying data store should be able to incorporate expanding data
      information of a lab.
 
-  6. When a lab is deployed, the dashboard should reflect the updated
+  7. When a lab is deployed, the dashboard should reflect the updated
      information.  This means integration with ADS.
      
-  7. Compatibility of Technologies. 
+  8. Compatibility of Technologies. 
+
+  9. Analytics for each lab
 
 * Design
+  
 * Implementation
 * Test Cases
 * Design discussions
 * Releases
 **  V0.1.0
-    This release will satisfy the requirements 1, 2, & 3
+    This release will satisfy the requirements 1, 2, 3, 4 & 5
