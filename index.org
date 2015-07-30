@@ -40,5 +40,27 @@
 * Test Cases
 * Design discussions
 * Releases
-**  V0.1.0
-    This release will satisfy the requirements 1, 2, 3, 4 & 5
+**  V0.0.1-alpha
+
+    |------------------+-----------------------------------------+----------------+---------------------|
+    | Deadline         | Deliverable                             | Resources      | TODO                |
+    |                  |                                         | (Person Hours) |                     |
+    |------------------+-----------------------------------------+----------------+---------------------|
+    | [2015-08-05 Wed] | + Current DataService APIs              | 100            | Backbonejs.org      |
+    |                  | - Apply new schema and migration script | Thirumal       | Eloquent JavaScript |
+    |                  | - API to list labs                      | Anon           |                     |
+    |                  | - API to list experiments of lab        | Khushpreet     |                     |
+    |                  |                                         | Ambika         |                     |
+    |                  | + Dashboard                             | Sripathi       |                     |
+    |                  | - List all the labs                     | Soujanya (50%) |                     |
+    |                  | - List of experiments of a lab          |                |                     |
+    |                  | - Update a lab                          |                |                     |
+    |                  |                                         |                |                     |
+    |------------------+-----------------------------------------+----------------+---------------------|
+    | [2015-08-12 Wed] |                                         |                |                     |
+    |------------------+-----------------------------------------+----------------+---------------------|
+    | [2015-08-29 Wed] |                                         |                |                     |
+    |------------------+-----------------------------------------+----------------+---------------------|
+    | [2015-08-26 Wed] |                                         |                |                     |
+    |------------------+-----------------------------------------+----------------+---------------------|
+
