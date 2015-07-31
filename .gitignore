@@ -4,6 +4,7 @@
 *~
 *#*
 .*#*
+sitemap*
 
 # the log directory
 log/*
@@ -43,8 +44,3 @@ nosetests.xml
 .project
 .pydevproject
 
-# config files
-aws_config.py
-authorized_users.py
-# private keys
-*.pem

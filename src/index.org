@@ -1,6 +1,9 @@
 #+TITLE: Dashboard to View Lab Information
 #+Author: VLEAD
 #+Date: [2015-07-09 Thu]
+#+PROPERTY: results output
+#+PROPERTY: exports code
+#+SETUPFILE: org-templates/level-0.org
 
 * Introduction
   The dashboard should provide every related information of a lab that is
@@ -35,11 +38,68 @@
   9. Analytics for each lab
 
 * Design
-  
+** Data Presentation
+*** Overview
+    #+CAPTION: Overview
+    #+Name: overview
+    [[./images/overview.jpg]]
+
+*** Query Driven
+**** List View
+     #+CAPTION: List View
+     #+Name: list
+
+     [[./images/list-view-of-labs.jpg]]
+
+**** Detailed VIew
+     #+CAPTION: Detailed View
+     #+Name: detail
+     
+     [[./images/detailed-view-of-a-particular-lab.jpg]]
+
+**** Update View
+     This is another view built upon the detailed view but with provisions to
+     edit the fields.
+*** Categories
+    1. Lab
+    2. Institute
+    3. Discipline
+    4. Technology
+    5. Experiment
+    6. Developers
+
+    #+CAPTION: Overview
+    #+Name: overview
+    [[./images/overview.jpg]]
+    
+** Data Retrieval
+*** Schema
+   #+CAPTION: ER Diagram
+   #+Name: er
+   [[https://drive.google.com/open?id%3D0B6LLRcwXMzt8N3RzZGVkb0NpUDA][ER Diagram]]
+*** APIs
+    [[https://github.com/vlead/dataservice/wiki/Public-APIs][API Documentation]]
+
 * Implementation
 * Test Cases
 * Design discussions
 * Releases
+** Backlog
+   1. There are 19 screens to be built. 
+      + Main Page
+      + List of instances of an Entity
+      + Detailed view 
+      + Update view
+   2. LDU operations
+      + list, detailed and update views for each entity.
+      + There are 6 entities - lab, experiment, developer, technologies,
+        institutes and disciplines
+   3. Controller Framework - applying Filters, etc.
+   4. Styling
+   5. Learning relevant technologies
+
+** 
+
 **  V0.0.1-alpha
 
     |------------------+-----------------------------------------+----------------+---------------------|
@@ -53,7 +113,7 @@
     |                  |                                         | Ambika         |                     |
     |                  | + Dashboard                             | Sripathi       |                     |
     |                  | - List all the labs                     | Soujanya (50%) |                     |
-    |                  | - List of experiments of a lab          |                |                     |
+    |                  | - Detailed View of a lab                              |                |                     |
     |                  | - Update a lab                          |                |                     |
     |                  |                                         |                |                     |
     |------------------+-----------------------------------------+----------------+---------------------|
