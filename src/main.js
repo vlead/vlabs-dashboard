@@ -5,7 +5,7 @@ var Lab = Backbone.Model.extend({});
 
 var Labs = Backbone.Collection.extend({
     model: Lab,
-    url: " http://10.2.59.38:5000/labs",
+    url: "http://10.2.58.114:5000/labs",
     initialize: function() {
         console.log("Labs initialize");
     }
@@ -25,8 +25,11 @@ var LabsView = Backbone.View.extend({
         this.collection.each(function(lab) {
         console.log(this);
         $('#labs-table').append(this.lab_template({
-                id: lab.get('lab_id'),
-        		name: lab.get('name')
+        		name: lab.get('name'),
+            discipline: lab.get('discipline'),
+            institute: lab.get('institute[3]'),
+            hosted: lab.get('status'),
+            no_of_experiments: lab.get('number_of_experiments')
         	}));
         }, this);
     }
@@ -55,7 +58,7 @@ var Institute = Backbone.Model.extend({});
 
 var Institutes = Backbone.Collection.extend({
     model: Institute,
-    url: "http://10.2.59.38:5000/institutes",
+    url: "http://10.2.58.114:5000/institutes",
     initialize: function() {
         console.log("Institutes initialize");
     }
@@ -105,7 +108,7 @@ var Discipline = Backbone.Model.extend({});
 
 var Disciplines = Backbone.Collection.extend({
     model: Discipline,
-    url: " http://10.2.59.38:5000/disciplines",
+    url: " http://10.2.58.114:5000/disciplines",
     initialize: function() {
         console.log("Disciplines initialize");
     }
@@ -153,7 +156,7 @@ var Developer = Backbone.Model.extend({});
 
 var Developers = Backbone.Collection.extend({
     model: Developer,
-    url: " http://10.2.59.38:5000/developers",
+    url: " http://10.2.58.114:5000/developers",
     initialize: function() {
         console.log("Developers initialize");
     }
@@ -203,7 +206,7 @@ var Technology = Backbone.Model.extend({});
 
 var Technologies = Backbone.Collection.extend({
     model: Technology,
-    url: " http://10.2.59.38:5000/technologies",
+    url: "http://10.2.58.114:5000/technologies",
     initialize: function() {
         console.log("Technologies initialize");
     }
