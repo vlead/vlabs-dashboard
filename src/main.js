@@ -23,14 +23,14 @@ var LabsView = Backbone.View.extend({
         console.log(this.collection.length);
        	this.$el.html(this.main_template());
         this.collection.each(function(lab) {
-        console.log(this);
-        $('#labs-table').append(this.lab_template({
-        		name: lab.get('name'),
-            discipline: lab.get('discipline'),
-            institute: lab.get('institute[3]'),
-            hosted: lab.get('status'),
-            no_of_experiments: lab.get('number_of_experiments')
-        	}));
+            console.log(this);
+            $('#labs-table').append(this.lab_template({
+        	name: lab.get('name'),
+		discipline: lab.get('discipline')['name'],
+		institute: lab.get('institute')['name'],
+		hosted: lab.get('status'),
+		no_of_experiments: lab.get('number_of_experiments')
+            }));
         }, this);
     }
 })
@@ -46,7 +46,7 @@ function showLabs() {
             labsview.render();
         },
         error: function(coll, resp, opts) {
-         alert("Error retrieving labs info");
+            alert("Error retrieving labs info");
         }
     });
 }
@@ -138,15 +138,15 @@ function showDisciplines() {
     console.log('iniating dashboard');
     var disciplines = new Disciplines();
     disciplines.fetch({success: function(coll, response, opts) {
-    console.log('disciplines coll', disciplines);
-    var disciplinesview = new DisciplinesView({collection: disciplines});
-    console.log(disciplinesview)
-    disciplinesview.render();
+	console.log('disciplines coll', disciplines);
+	var disciplinesview = new DisciplinesView({collection: disciplines});
+	console.log(disciplinesview)
+	disciplinesview.render();
     },
-    error: function(coll, resp, opts) {
-        alert("Error retrieving disciplines info");
-    }
-    });
+		       error: function(coll, resp, opts) {
+			   alert("Error retrieving disciplines info");
+		       }
+		      });
 }
 
 
@@ -188,15 +188,15 @@ function showDevelopers() {
     console.log('iniating dashboard');
     var developers = new Developers();
     developers.fetch({success: function(coll, response, opts) {
-    console.log('developers coll', developers);
-    var developersview = new DevelopersView({collection: developers});
-    console.log(developersview)
-    developersview.render();
+	console.log('developers coll', developers);
+	var developersview = new DevelopersView({collection: developers});
+	console.log(developersview)
+	developersview.render();
     },
-    error: function(coll, resp, opts) {
-        alert("Error retrieving developers info");
-    }
-    });
+		      error: function(coll, resp, opts) {
+			  alert("Error retrieving developers info");
+		      }
+		     });
 }
 
 
