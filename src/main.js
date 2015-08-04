@@ -7,10 +7,32 @@ var AppView = Backbone.View.extend({
     initialize: function(){ },
     onSelect: function(e) {
 	var value = $(e.currentTarget).val();
-	console.log(value);
+	this.showCategory(value);
+    },
+    showCategory: function(category) {
+    	console.log("category =" , category);
+    	console.log("collection =" , collections[category]);
+    	var current_collection = new collections[category]();
+    	//var current_collection = new Labs();
+
+    	console.log(current_collection);
+    	current_collection.fetch({
+		success: function(coll, response, opts) {
+			var current_view = new list_views[category]({collection: current_collection});
+			console.log(current_view);
+			current_view.render();
+		},
+		error: function(coll, resp, opts) {
+			alert("Error retrieving info");
+		}
+	});
     }
 });
 
+
+
+
+			    
 function init() {
     $.ajaxSetup({crossDomain: true});
     var appview = new AppView();
@@ -23,14 +45,14 @@ var Lab = Backbone.Model.extend({});
 
 var Labs = Backbone.Collection.extend({
     model: Lab,
-    url: "http://10.2.58.114:5000/labs",
+    url: "http://localhost:5000/labs",
     initialize: function() {
         console.log("Labs initialize");
     }
 });
 
-var LabsView = Backbone.View.extend({
-    el: $('#lab'),
+var LabsListView = Backbone.View.extend({
+    el: $('#result-set'),
     initialize: function () {
     	this.main_template = _.template($('#labsview-root-template').html()),
     	this.lab_template = _.template($('#lab-model-template').html()),
@@ -53,36 +75,20 @@ var LabsView = Backbone.View.extend({
     }
 })
 
-function showLabs() {
-    console.log('initing dashboard');
-    var labs = new Labs();
-    labs.fetch({
-        success: function(coll, response, opts) {
-            console.log('labs coll', labs);
-            var labsview = new LabsView({collection: labs});
-            console.log(labsview)
-            labsview.render();
-        },
-        error: function(coll, resp, opts) {
-            alert("Error retrieving labs info");
-        }
-    });
-}
-
 
 // Institutes List View
 var Institute = Backbone.Model.extend({});
 
 var Institutes = Backbone.Collection.extend({
     model: Institute,
-    url: "http://10.2.58.114:5000/institutes",
+    url: "http://localhost:5000/institutes",
     initialize: function() {
         console.log("Institutes initialize");
     }
 });
 
-var InstitutesView = Backbone.View.extend({
-    el: $('#inst'),
+var InstitutesListView = Backbone.View.extend({
+    el: $('#result-set'),
     initialize: function () {
         this.main_template = _.template($('#institutesview-root-template').html()),
         this.institute_template = _.template($('#institute-model-template').html()),
@@ -101,37 +107,20 @@ var InstitutesView = Backbone.View.extend({
     }
 })
 
-function showInstitutes() {
-    console.log('initing dashboard');
-    var institutes = new Institutes();
-    console.log(institutes);
-    institutes.fetch({
-        success: function(coll, response, opts) {
-            console.log('institutes coll', institutes);
-            var institutesview = new InstitutesView({collection: institutes});
-            console.log(institutesview)
-            institutesview.render();
-        },
-        error: function(coll, resp, opts) {
-            console.log("Error retrieving institutes info");
-        }
-    });
-}
-
 
 // Disciplines List View
 var Discipline = Backbone.Model.extend({});
 
 var Disciplines = Backbone.Collection.extend({
     model: Discipline,
-    url: " http://10.2.58.114:5000/disciplines",
+    url: " http://localhost:5000/disciplines",
     initialize: function() {
         console.log("Disciplines initialize");
     }
 });
 
-var DisciplinesView = Backbone.View.extend({
-    el: $('#disc'),
+var DisciplinesListView = Backbone.View.extend({
+    el: $('#result-set'),
     initialize: function () {
         this.main_template = _.template($('#disciplinesview-root-template').html()),
         this.discipline_template = _.template($('#discipline-model-template').html()),
@@ -150,36 +139,20 @@ var DisciplinesView = Backbone.View.extend({
     }
 })
 
-function showDisciplines() {
-    console.log('iniating dashboard');
-    var disciplines = new Disciplines();
-    disciplines.fetch({success: function(coll, response, opts) {
-	console.log('disciplines coll', disciplines);
-	var disciplinesview = new DisciplinesView({collection: disciplines});
-	console.log(disciplinesview)
-	disciplinesview.render();
-    },
-		       error: function(coll, resp, opts) {
-			   alert("Error retrieving disciplines info");
-		       }
-		      });
-}
-
-
 
 // Developers List View
 var Developer = Backbone.Model.extend({});
 
 var Developers = Backbone.Collection.extend({
     model: Developer,
-    url: " http://10.2.58.114:5000/developers",
+    url: " http://localhost:5000/developers",
     initialize: function() {
         console.log("Developers initialize");
     }
 });
 
-var DevelopersView = Backbone.View.extend({
-    el: $('#dev'),
+var DevelopersListView = Backbone.View.extend({
+    el: $('#result-set'),
     initialize: function () {
         this.main_template = _.template($('#developersview-root-template').html()),
         this.developer_template = _.template($('#developer-model-template').html()),
@@ -200,36 +173,20 @@ var DevelopersView = Backbone.View.extend({
     }
 })
 
-function showDevelopers() {
-    console.log('iniating dashboard');
-    var developers = new Developers();
-    developers.fetch({success: function(coll, response, opts) {
-	console.log('developers coll', developers);
-	var developersview = new DevelopersView({collection: developers});
-	console.log(developersview)
-	developersview.render();
-    },
-		      error: function(coll, resp, opts) {
-			  alert("Error retrieving developers info");
-		      }
-		     });
-}
-
-
 
 // Technologies List View
 var Technology = Backbone.Model.extend({});
 
 var Technologies = Backbone.Collection.extend({
     model: Technology,
-    url: "http://10.2.58.114:5000/technologies",
+    url: "http://localhost:5000/technologies",
     initialize: function() {
         console.log("Technologies initialize");
     }
 });
 
-var TechnologiesView = Backbone.View.extend({
-    el: $('#tech'),
+var TechnologiesListView = Backbone.View.extend({
+    el: $('#result-set'),
     initialize: function () {
         this.main_template = _.template($('#technologyview-root-template').html()),
         this.technology_template = _.template($('#technology-model-template').html()),
@@ -248,20 +205,19 @@ var TechnologiesView = Backbone.View.extend({
             }));
         }, this);
     }
-})
+});
 
-function showTechnologies() {
-    console.log('initing dashboard');
-    var technologies = new Technologies();
-    technologies.fetch({
-        success: function(coll, response, opts) {
-            console.log('technologies coll', technologies);
-            var technologiesview = new TechnologiesView({collection: technologies});
-            console.log(technologiesview)
-            technologiesview.render();
-        },
-        error: function(coll, resp, opts) {
-            alert("Error retrieving technologies info");
-        }
-    });
-}
+var collections = { 
+  lab: Labs,
+  developer: Developers,
+  institute: Institutes,
+  discipline: Disciplines,
+  technology: Technologies
+};
+
+var list_views = { lab: LabsListView,
+		   developer: DevelopersListView,
+		   discipline: DisciplinesListView,
+		   institute: InstitutesListView,
+		   technology: TechnologiesListView
+		 };
