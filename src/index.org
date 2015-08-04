@@ -83,6 +83,23 @@
 * Implementation
 * Test Cases
 * Design discussions
+ + Following reviews/points were discussed in the meeting held on
+   2015-07-31:
+  - Running status of a lab/experiment (indicating its health) should
+    also be captured. This should come as a feedback from an outside
+    user or from the Q/A team.
+
+  - =Compatibility of technologies= in the =Requirements= section
+    should be explained more clearly.
+
+  - Analytics and outreach activities for a particular lab should also
+    be reflected.
+
+  - Discussion was held and team members were encouraged to look for a
+    solution (essentially a program) that can generate basic HTML
+    template from the ER diagram itself.
+  
+
 * Releases
 ** Backlog
    1. There are 19 screens to be built. 
