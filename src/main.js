@@ -1,4 +1,22 @@
-$.ajaxSetup({crossDomain: true});
+// Master View to control the selected values
+var AppView = Backbone.View.extend({
+    el: $('.container'),
+    events: {
+	'change #category': 'onSelect'
+    },
+    initialize: function(){ },
+    onSelect: function(e) {
+	var value = $(e.currentTarget).val();
+	console.log(value);
+    }
+});
+
+function init() {
+    $.ajaxSetup({crossDomain: true});
+    var appview = new AppView();
+}
+
+init();
 
 // Labs List View
 var Lab = Backbone.Model.extend({});
@@ -12,7 +30,7 @@ var Labs = Backbone.Collection.extend({
 });
 
 var LabsView = Backbone.View.extend({
-	el: $('#lab'),
+    el: $('#lab'),
     initialize: function () {
     	this.main_template = _.template($('#labsview-root-template').html()),
     	this.lab_template = _.template($('#lab-model-template').html()),
@@ -50,7 +68,6 @@ function showLabs() {
         }
     });
 }
-
 
 
 // Institutes List View
@@ -100,7 +117,6 @@ function showInstitutes() {
         }
     });
 }
-
 
 
 // Disciplines List View
