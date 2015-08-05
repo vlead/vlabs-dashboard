@@ -39,10 +39,14 @@ var AppView = Backbone.View.extend({
     });
   },
   showDetailView: function(type, id) {
-    console.log('detailed view of', type, id);
-    var current_model = this.current_collection.filter({id: id});
-    //var detailed_view = new detail_views[type]({model: current_model});
-    //detailed_view.render();
+    console.log('detailed view', type, id);
+    var current_model = this.current_collection.find({id: parseInt(id)});
+    var detailed_view = new LabView({
+      model: current_model,
+      el: $('#result-set')
+    });
+    //this.detailed_view = detailed_view;
+    detailed_view.render();
   }
 });
 
@@ -77,6 +81,19 @@ var LabsListView = Backbone.View.extend({
     var lab_id = $(event.currentTarget).attr('data-lab');
     console.log('clicked', lab_id);
     VLD.app_view.trigger('detail-view', 'lab', lab_id);
+  }
+});
+
+var LabView = Backbone.View.extend({
+  initialize: function () {
+    console.log("initialized");
+    console.log(this);
+    this.template = _.template($('#lab-detailed-template').html());
+  },
+  render: function() {
+    console.log('rendering..');
+    //console.log(this.model, this.model.toJSON);
+    this.$el.html(this.template(this.model.toJSON()));
   }
 });
 
