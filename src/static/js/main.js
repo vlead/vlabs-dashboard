@@ -64,6 +64,10 @@ var AppView = Backbone.View.extend({
       return;
     }
     console.log(model);
+    //the type of detailed view do not exist!
+    if(!detail_views.hasOwnProperty(type)) {
+      return;
+    }
     //TODO: maybe a later optimization could be to not destroy the views, but
     //to switch among views..
     if(this.current_view) {
@@ -193,7 +197,7 @@ var DisciplinesListView = Backbone.View.extend({
   showDiscDetail: function(event) {
     var disc_id = $(event.currentTarget).attr('data-disc');
     console.log('clicked', disc_id);
-    VLD.app_view.trigger('detail-view', 'disciplines', disc_id);
+    VLD.app_view.trigger('detail-view', 'discipline', disc_id);
   }
 });
 
@@ -228,7 +232,7 @@ var DevelopersListView = Backbone.View.extend({
   showDevDetail: function(event) {
     var dev_id = $(event.currentTarget).attr('data-dev');
     console.log('clicked', dev_id);
-    VLD.app_view.trigger('detail-view', 'developers', dev_id);
+    VLD.app_view.trigger('detail-view', 'developer', dev_id);
   }
 });
 
@@ -263,7 +267,7 @@ var TechnologiesListView = Backbone.View.extend({
   showTechDetail: function(event) {
     var tech_id = $(event.currentTarget).attr('data-tech');
     console.log('clicked', tech_id);
-    VLD.app_view.trigger('detail-view', 'technologies', tech_id);
+    VLD.app_view.trigger('detail-view', 'technology', tech_id);
   }
 });
 
