@@ -33,60 +33,59 @@
 
     </div>
 
-    <!-- Scripts -->
-    <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="lib/underscore-min.js"></script>
-    <script type="text/javascript" src="lib/backbone-min.js"></script>
-    <!--script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script-->
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="static/js/main.js"></script>
-
-    <!-- templates -->
-    <script type="text/template" id="labs-list-view-wrapper-template">
-      <div class="list-header">
-        <div class="row list-info">
-          <div class="">Total number of labs: <b><%= this.collection.length %></b> </div>
-        </div>
-        <div class="row list-heading">
-          <div class="col-md-3"> Name </div>
-          <div class="col-md-3"> Discipline </div>
-          <div class="col-md-2"> Institute </div>
-          <div class="col-md-2"> Hosted </div>
-          <div class="col-md-2"> Total experiments </div>
-        </div>
+  <!-- Scripts -->
+  <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="lib/underscore-min.js"></script>
+  <script type="text/javascript" src="lib/backbone-min.js"></script>
+  <!--script
+    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script-->
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="static/js/main.js"></script>
+  <!-- templates -->
+  <script type="text/template" id="labs-list-view-wrapper-template">
+    <div class="list-header">
+      <div class="row list-info">
+        <div class="">Total number of labs: <b><%= this.collection.length %></b> </div>
       </div>
-      <div id="lab-list"></div>
-    </script>
-
-    <script type="text/template" id="lab-list-template">
-      <div class="row list" data-lab="<%= id %>">
-        <div class="col-md-3"> <%= name %> </div>
-        <div class="col-md-3"> <%= discipline.name %> </div>
-        <div class="col-md-2"> <%= institute.name %> </div>
-        <div class="col-md-2">
-          <% if(is_hosted) { %>
-            Yes
-          <% } else { %>
-            No
-          <% } %>
-        </div>
-        <div class="col-md-2"> <%= number_of_experiments %> </div>
+      <div class="row list-heading">
+        <div class="col-md-3"> Name </div>
+        <div class="col-md-3"> Discipline </div>
+        <div class="col-md-2"> Institute </div>
+        <div class="col-md-2"> Hosted </div>
+        <div class="col-md-2"> Total experiments </div>
       </div>
-    </script>
+    </div>
+    <div id="lab-list"></div>
+  </script>
 
-    <script type="text/template" id="institutes-list-view-wrapper-template">
-      <div class="list-header">
-	<div class="row list-info">
-	  <div class ="">Total number of institutes: <b><%= this.collection.length %></b> </div>
-	</div>
-	<div class="row list-heading">
-	  <div class="col-md-3"> Name </div>
-          <div class="col-md-3"> PIC </div>
-          <div class="col-md-2"> IIC </div>
-        </div>
+  <script type="text/template" id="lab-list-template">
+    <div class="row list" data-lab="<%= id %>">
+      <div class="col-md-3"> <%= name %> </div>
+      <div class="col-md-3"> <%= discipline.name %> </div>
+      <div class="col-md-2"> <%= institute.name %> </div>
+      <div class="col-md-2">
+        <% if(is_hosted) { %>
+          Yes
+        <% } else { %>
+          No
+        <% } %>
       </div>
-      <div id="inst-list"></div>
+      <div class="col-md-2"> <%= number_of_experiments %> </div>
+    </div>
+  </script>
+
+  <script type="text/template" id="institutes-list-view-wrapper-template">
+    <div class="list-header">
+	    <div class="row list-info">
+	      <div class ="">Total number of institutes: <b><%= this.collection.length %></b> </div>
+	    </div>
+	    <div class="row list-heading">
+	      <div class="col-md-3"> Name </div>
+        <div class="col-md-3"> PIC </div>
+        <div class="col-md-2"> IIC </div>
+      </div>
+    </div>
+    <div id="inst-list"></div>
     </script>
     
     <script type="text/template" id="institute-list-template">
@@ -94,22 +93,22 @@
         <div class="col-md-3"> <%= name %> </div>
         <div class="col-md-3"> <%= PIC %> </div>
         <div class="col-md-2">
-	  <% if(IIC) { %>
+	        <% if(IIC) { %>
             <%= IIC %>
           <% } else { %>
             Unknown
           <% } %>
-	</div>
+	      </div>
       </div>
     </script>
 
     <script type="text/template" id="disciplines-list-view-wrapper-template">
       <div class="list-header">
-	<div class="row list-info">
-	  <div class ="">Total number of disciplines: <b><%= this.collection.length %></b> </div>
-	</div>
-	<div class="row list-heading">
-	  <div class="col-md-3"> Name </div>
+	      <div class="row list-info">
+	        <div class ="">Total number of disciplines: <b><%= this.collection.length %></b> </div>
+	      </div>
+	      <div class="row list-heading">
+	        <div class="col-md-3"> Name </div>
           <div class="col-md-3"> DNC </div>
         </div>
       </div>
@@ -120,7 +119,7 @@
       <div class="row list" data-disc="<%= id %>">
         <div class="col-md-3"> <%= name %> </div>
         <div class="col-md-3">
-	  <% if(dnc) { %>
+	        <% if(dnc) { %>
             <%= dnc %>
           <% } else { %>
             Unknown
@@ -130,13 +129,13 @@
 
     <script type="text/template" id="developers-list-view-wrapper-template">
       <div class="list-header">
-	<div class="row list-info">
-	  <div class ="">Total number of developers: <b><%= this.collection.length %></b> </div>
-	</div>
-	<div class="row list-heading">
-	  <div class="col-md-3"> Institute Name </div>
+	      <div class="row list-info">
+	        <div class ="">Total number of developers: <b><%= this.collection.length %></b> </div>
+	      </div>
+	      <div class="row list-heading">
+	        <div class="col-md-3"> Institute Name </div>
           <div class="col-md-3"> Developer Name </div>
-	  <div class="col-md-2"> Email ID </div>
+	        <div class="col-md-2"> Email ID </div>
         </div>
       </div>
       <div id="dev-list"></div>
@@ -146,19 +145,19 @@
       <div class="row list" data-dev="<%= id %>">
         <div class="col-md-3"> <%= institute.name %> </div>
         <div class="col-md-3"> <%= name %> </div>
-	<div class="col-md-2"> <%= email_id %> </div>
+	      <div class="col-md-2"> <%= email_id %> </div>
       </div>
     </script>
     
     <script type="text/template" id="technologies-list-view-wrapper-template">
       <div class="list-header">
-	<div class="row list-info">
-	  <div class ="">Total number of technologies: <b><%= this.collection.length %></b> </div>
-	</div>
-	<div class="row list-heading">
-	  <div class="col-md-3"> Name </div>
+	      <div class="row list-info">
+	        <div class ="">Total number of technologies: <b><%= this.collection.length %></b> </div>
+	      </div>
+	      <div class="row list-heading">
+	        <div class="col-md-3"> Name </div>
           <div class="col-md-3"> FOSS </div>
-	</div>
+	      </div>
       </div>
       <div id="tech-list"></div>
     </script>
@@ -167,12 +166,12 @@
       <div class="row list" data-tech="<%= id %>">
         <div class="col-md-3"> <%= name %> </div>
         <div class="col-md-2">
-	  <% if(foss) { %>
+	        <% if(foss) { %>
             Yes
           <% } else { %>
             No
           <% } %>
-	</div>
+	      </div>
       </div>
     </script>
 
