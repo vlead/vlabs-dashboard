@@ -1,0 +1,22 @@
+.list-heading {
+  font-weight: bold;
+  padding: 0 2%;
+}
+/*.list-heading > div {
+  text-align: center;
+}*/
+.list-info {
+  margin: 20px 0;
+}
+.list {
+  padding: 10px 0;
+  margin: 2px 0;
+  border: 1px solid #EEE;
+}
+/*.list > div {
+  text-align: center;
+}*/
+.list:hover {
+  cursor: pointer;
+  background: #EEE;
+}

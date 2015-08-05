@@ -1,87 +1,109 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-</head>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <!--link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <!-- Optional theme -->
+    <!--link rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"-->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+  </head>
 
-<body>
-<div class="container"><h1 id="header">Virtual Labs Dashboard</h1>
+  <body>
+    <div class="container">
+      <h1 id="header">Virtual Labs Dashboard</h1>
 
-  <div id="user-control">
-    <select id="category" class="form-control">
-      <option value="lab">Labs</option>
-      <option value="institute">Institutes</option>
-      <option value="discipline">Discplines</option>
-      <option value="technology">Technologies</option>
-      <option value="developer">Developers</option>
-    </select>
-  </div>
+      <div id="user-control" class="row">
+        <div class="col-md-3">
+          <select id="category" class="form-control">
+            <option value="lab">Labs</option>
+            <option value="institute">Institutes</option>
+            <option value="discipline">Disciplines</option>
+            <option value="technology">Technologies</option>
+            <option value="developer">Developers</option>
+          </select>
+        </div>
+      </div>
 
-  <div id="result-set"></div>
+      <div id="result-set"></div>
 
-</div>
+    </div>
 
-<!-- Scripts -->
-<script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="lib/underscore-min.js"></script>
-<script type="text/javascript" src="lib/backbone-min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
-<script type="text/template" id="labsview-root-template">
-<table class="table striped-table" id="labs-table">
-      <tr>Total number of labs:
-        <%= this.collection.length %> </tr>
-      <tr>
-        <th> Lab Name </th>
-        <th> Discipline </th>
-        <th> Institute </th>
-        <th> Hosted </th>
-        <th> No. of experiments </th>
-      </tr>
-    </table>
-</script>
-<script type="text/template" id="lab-model-template">
-<tr>
-      <td> <%= name %> </td>
-      <td> <%= discipline %> </td>
-      <td> <%= institute %> </td>
-      <td> <%= hosted %> </td>
-      <td> <%= no_of_experiments %> </td>
-    </tr>
-</script>
-<script type="text/template" id="institutesview-root-template">
-  <table class="table striped-table" id="institutes-table">
+    <!-- Scripts -->
+    <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/backbone-min.js"></script>
+    <!--script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script-->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/main.js"></script>
+
+    <!-- templates -->
+    <script type="text/template" id="labs-list-view-wrapper-template">
+      <div class="list-header">
+        <div class="row list-info">
+          <div class="">Total number of labs: <b><%= this.collection.length %></b> </div>
+        </div>
+        <div class="row list-heading">
+          <div class="col-md-3"> Name </div>
+          <div class="col-md-3"> Discipline </div>
+          <div class="col-md-2"> Institute </div>
+          <div class="col-md-2"> Hosted </div>
+          <div class="col-md-2"> Total experiments </div>
+        </div>
+      </div>
+      <div id="lab-list"></div>
+    </script>
+
+    <script type="text/template" id="lab-list-template">
+      <div class="row list" data-lab="<%= id %>">
+        <div class="col-md-3"> <%= name %> </div>
+        <div class="col-md-3"> <%= discipline.name %> </div>
+        <div class="col-md-2"> <%= institute.name %> </div>
+        <div class="col-md-2">
+          <% if(is_hosted) { %>
+            Yes
+          <% } else { %>
+            No
+          <% } %>
+        </div>
+        <div class="col-md-2"> <%= number_of_experiments %> </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="institutesview-root-template">
+<table class="table striped-table" id="institutes-table">
     <tr>Total number of institutes:
       <%= this.collection.length %> </tr>
     <tr>
       <th> Institute Name </th>
     </tr>
   </table>
-</script>
-<script type="text/template" id="institute-model-template">
-  <tr>
+    </script>
+    <script type="text/template" id="institute-model-template">
+<tr>
     <td> <%= name %> </td>
   </tr>
-</script>
-<script type="text/template" id="disciplinesview-root-template">
-  <table class="table striped-table" id="disciplines-table">
+    </script>
+    <script type="text/template" id="disciplinesview-root-template">
+<table class="table striped-table" id="disciplines-table">
     <tr>Total number of disciplines:
       <%= this.collection.length %> </tr>
     <tr>
       <th> Discipline Name </th>
     </tr>
   </table>
-</script>
-<script type="text/template" id="discipline-model-template">
-  <tr>
+    </script>
+    <script type="text/template" id="discipline-model-template">
+<tr>
     <td> <%= name %> </td>
   </tr>
-</script>
-<script type="text/template" id="developersview-root-template">
-  <table class="table striped-table" id="developers-table">
+    </script>
+    <script type="text/template" id="developersview-root-template">
+<table class="table striped-table" id="developers-table">
     <tr>Total number of developers:
       <%= this.collection.length %> </tr>
     <tr>
@@ -90,16 +112,16 @@
       <th> Email ID </th>
     </tr>
   </table>
-</script>
-<script type="text/template" id="developer-model-template">
-  <tr>
+    </script>
+    <script type="text/template" id="developer-model-template">
+<tr>
     <td> <%= instituteid %> </td>
     <td> <%= developername %> </td>
     <td> <%= emailid %> </td>
   </tr>
-</script>
-<script type="text/template" id="technologyview-root-template">
-  <table class="table striped-table" id="technologies-table">
+    </script>
+    <script type="text/template" id="technologyview-root-template">
+<table class="table striped-table" id="technologies-table">
     <tr>Total number of technologies:
       <%= this.collection.length %> </tr>
     <tr>
@@ -108,14 +130,14 @@
       <th> FOSS </th>
     </tr>
   </table>
-</script>
-<script type="text/template" id="technology-model-template">
-  <tr>
+    </script>
+    <script type="text/template" id="technology-model-template">
+<tr>
     <td> <%= id %> </td>
     <td> <%= name %> </td>
     <td> <%= foss %> </td>
   </tr>
-</script>
+    </script>
 
-</body>
+  </body>
 </html>
