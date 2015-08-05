@@ -39,10 +39,10 @@ var AppView = Backbone.View.extend({
     });
   },
   showDetailView: function(type, id) {
-    console.log('detailed view', type, id);
-    /*var current_model = this.current_collection.filter({id: id});
-    var detailed_view = new LabDetailedView({model: current_model});
-    detailed_view.render();*/
+    console.log('detailed view of', type, id);
+    var current_model = this.current_collection.filter({id: id});
+    //var detailed_view = new detail_views[type]({model: current_model});
+    //detailed_view.render();
   }
 });
 
@@ -231,6 +231,11 @@ var models = {
   discipline: Discipline,
   technology: Technology
 };
+
+/*var detail_views = {
+  lab: LabView,
+  institute: InstituteView
+};*/
 
 var list_views = {
   lab: LabsListView,
