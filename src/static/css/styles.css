@@ -8,7 +8,7 @@
 .list-info {
   margin: 20px 0;
 }
-.list {
+.list, .detail {
   padding: 10px 0;
   margin: 2px 0;
   border: 1px solid #EEE;
@@ -19,4 +19,12 @@
 .list:hover {
   cursor: pointer;
   background: #EEE;
+}
+
+.detail-view {
+  margin-top: 1%;
+}
+
+.update-button-alignment{
+  margin-top: 5px; 
 }
