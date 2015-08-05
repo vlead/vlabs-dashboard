@@ -182,8 +182,8 @@
 	<div class ="">Total number of disciplines: <b><%= this.collection.length %></b> </div>
       </div>
       <div class="row list-heading">
-	<div class="col-md-3"> Name </div>
-        <div class="col-md-3"> DNC </div>
+	<div class="col-md-6"> Name </div>
+        <div class="col-md-6"> DNC </div>
       </div>
     </div>
     <div id="disc-list"></div>
@@ -191,10 +191,10 @@
     
   <script type="text/template" id="discipline-list-template">
     <div class="row list" data-disc="<%= id %>">
-      <div class="col-md-3"> <%= name %> </div>
-      <div class="col-md-3">
+      <div class="col-md-6"> <%= name %> </div>
+      <div class="col-md-6">
 	<% if(dnc) { %>
-          <%= dnc %>
+          <%- dnc %>
         <% } else { %>
           Unknown
         <% } %>
@@ -232,7 +232,8 @@
       <div class="row list-heading">
 	<div class="col-md-3"> Name </div>
         <div class="col-md-3"> FOSS </div>
-      </div>
+        <div class="col-md-3"> Version </div> 
+     </div>
     </div>
     <div id="tech-list"></div>
   </script>
@@ -240,11 +241,18 @@
   <script type="text/template" id="technology-list-template">
     <div class="row list" data-tech="<%= id %>">
       <div class="col-md-3"> <%= name %> </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
 	<% if(foss) { %>
           Yes
         <% } else { %>
           No
+        <% } %>
+      </div>
+      <div class="col-md-3">
+        <% if(version) { %>
+          <%= version %>
+        <% } else { %>
+          null
         <% } %>
       </div>
     </div>
