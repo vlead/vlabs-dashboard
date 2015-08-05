@@ -93,7 +93,13 @@
       <div class="row list" data-inst="<%= id %>">
         <div class="col-md-3"> <%= name %> </div>
         <div class="col-md-3"> <%= PIC %> </div>
-        <div class="col-md-2"> <%= IIC %> </div>
+        <div class="col-md-2">
+	  <% if(IIC) { %>
+            <%= IIC %>
+          <% } else { %>
+            Unknown
+          <% } %>
+	</div>
       </div>
     </script>
 
@@ -113,7 +119,12 @@
     <script type="text/template" id="discipline-list-template">
       <div class="row list" data-disc="<%= id %>">
         <div class="col-md-3"> <%= name %> </div>
-        <div class="col-md-3"> <%= dnc %> </div>
+        <div class="col-md-3">
+	  <% if(dnc) { %>
+            <%= dnc %>
+          <% } else { %>
+            Unknown
+          <% } %>
       </div>
     </script>
 
@@ -133,7 +144,7 @@
     
     <script type="text/template" id="developer-list-template">
       <div class="row list" data-dev="<%= id %>">
-        <div class="col-md-3"> <%= name %> </div>
+        <div class="col-md-3">  </div>
         <div class="col-md-3"> <%= name %> </div>
 	<div class="col-md-2"> <%= email_id %> </div>
       </div>
@@ -155,7 +166,13 @@
     <script type="text/template" id="technology-list-template">
       <div class="row list" data-tech="<%= id %>">
         <div class="col-md-3"> <%= name %> </div>
-        <div class="col-md-2"> <%= foss %> </div>
+        <div class="col-md-2">
+	  <% if(foss) { %>
+            Yes
+          <% } else { %>
+            No
+          <% } %>
+	</div>
       </div>
     </script>
 
