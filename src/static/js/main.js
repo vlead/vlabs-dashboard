@@ -156,7 +156,7 @@ var InstitutesListView = Backbone.View.extend({
     }, this);
   },
   showInstDetail: function(event) {
-    var inst_id = $(event.currentTarget).attr('inst-list');
+    var inst_id = $(event.currentTarget).attr('data-inst');
     console.log('clicked', inst_id);
     VLD.app_view.trigger('detail-view', 'institute', inst_id);
   }
@@ -191,7 +191,7 @@ var DisciplinesListView = Backbone.View.extend({
     }, this);
   },
   showDiscDetail: function(event) {
-    var disc_id = $(event.currentTarget).attr('disc-list');
+    var disc_id = $(event.currentTarget).attr('data-disc');
     console.log('clicked', disc_id);
     VLD.app_view.trigger('detail-view', 'disciplines', disc_id);
   }
@@ -226,7 +226,7 @@ var DevelopersListView = Backbone.View.extend({
     }, this);
   },
   showDevDetail: function(event) {
-    var dev_id = $(event.currentTarget).attr('dev-list');
+    var dev_id = $(event.currentTarget).attr('data-dev');
     console.log('clicked', dev_id);
     VLD.app_view.trigger('detail-view', 'developers', dev_id);
   }
@@ -261,7 +261,7 @@ var TechnologiesListView = Backbone.View.extend({
     }, this);
   },
   showTechDetail: function(event) {
-    var tech_id = $(event.currentTarget).attr('tech-list');
+    var tech_id = $(event.currentTarget).attr('data-tech');
     console.log('clicked', tech_id);
     VLD.app_view.trigger('detail-view', 'technologies', tech_id);
   }
