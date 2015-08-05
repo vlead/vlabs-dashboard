@@ -10,6 +10,7 @@ var AppView = Backbone.View.extend({
   },
   initialize: function() {
     this.on('detail-view', this.showDetailView);
+    this.fetched_collections = {};
   },
   onSelect: function(e) {
     var value = $(e.currentTarget).val();
@@ -23,20 +24,33 @@ var AppView = Backbone.View.extend({
     var current_collection = new collections[category]();
     this.current_collection = current_collection;
     //var current_collection = new Labs();
-    console.log(current_collection);
-    current_collection.fetch({
-      success: function(coll, response, opts) {
-        var current_view = new list_views[category]({
-          collection: current_collection,
-          el: $('#result-set')
-        });
-        console.log(current_view);
-        current_view.render();
-      },
-      error: function(coll, resp, opts) {
-        alert("Error retrieving info");
-      }
+    console.log('fetched colls', this.fetched_collections);
+    if(this.fetched_collections[category]) {
+      console.log('coll already exist');
+      this.showListView(category);
+    }
+    else {
+      console.log('coll doesnt exist! Fetching it');
+      var self = this;
+      current_collection.fetch({
+        success: function(coll, response, opts) {
+          console.log(this);
+          self.fetched_collections[category] = current_collection;
+          self.showListView(category);
+        },
+        error: function(coll, resp, opts) {
+          alert("Error retrieving info");
+        }
+      });
+    }
+  },
+  showListView: function(type) {
+    var current_view = new list_views[type]({
+      collection: this.fetched_collections[type],
+      el: $('#result-set')
     });
+    console.log('showListView() current view:', current_view);
+    current_view.render();
   },
   showDetailView: function(type, id) {
     console.log('detailed view of', type, id);
@@ -67,6 +81,8 @@ var LabsListView = Backbone.View.extend({
     this.template = _.template($('#lab-list-template').html());
   },
   render: function() {
+    console.log('rendering lab list');
+    console.log('total labs: ', this.collection.length);
     this.$el.html(this.wrapper_template());
     this.$lab_el = $('#lab-list');
     this.collection.each(function(lab) {
