@@ -45,22 +45,34 @@ var AppView = Backbone.View.extend({
     }
   },
   showListView: function(type) {
-    var current_view = new list_views[type]({
-      collection: this.fetched_collections[type],
-      el: $('#result-set')
+    //TODO: maybe a later optimization could be to not destroy the views, but
+    //to switch among views..
+    if(this.current_view) {
+      this.current_view.remove();
+    }
+    this.current_view = new list_views[type]({
+      collection: this.fetched_collections[type]
     });
-    console.log('showListView() current view:', current_view);
-    current_view.render();
+    console.log('showListView() current view:', this.current_view);
+    this.current_view.render();
   },
   showDetailView: function(type, id) {
     console.log('detailed view', type, id);
-    var current_model = this.current_collection.find({id: parseInt(id)});
-    var detailed_view = new LabView({
-      model: current_model,
-      el: $('#result-set')
+    var model = this.fetched_collections[type].find({id: parseInt(id)});
+    if(!model) {
+      console.log('no model found!', model);
+      return;
+    }
+    console.log(model);
+    //TODO: maybe a later optimization could be to not destroy the views, but
+    //to switch among views..
+    if(this.current_view) {
+      this.current_view.remove();
+    }
+    this.current_view = new detail_views[type]({
+      model: model
     });
-    //this.detailed_view = detailed_view;
-    detailed_view.render();
+    this.current_view.render();
   }
 });
 
@@ -83,6 +95,7 @@ var LabsListView = Backbone.View.extend({
     this.wrapper_template =
       _.template($('#labs-list-view-wrapper-template').html());
     this.template = _.template($('#lab-list-template').html());
+    $('#result-set').append(this.$el);
   },
   render: function() {
     console.log('rendering lab list');
@@ -105,6 +118,7 @@ var LabView = Backbone.View.extend({
     console.log("initialized");
     console.log(this);
     this.template = _.template($('#lab-detailed-template').html());
+    $('#result-set').append(this.$el);
   },
   render: function() {
     console.log('rendering..');
@@ -132,6 +146,7 @@ var InstitutesListView = Backbone.View.extend({
     this.wrapper_template =
       _.template($('#institutes-list-view-wrapper-template').html());
     this.template = _.template($('#institute-list-template').html());
+    $('#result-set').append(this.$el);
     },
   render: function(){
     this.$el.html(this.wrapper_template());
@@ -166,6 +181,7 @@ var DisciplinesListView = Backbone.View.extend({
     this.wrapper_template =
       _.template($('#disciplines-list-view-wrapper-template').html());
     this.template = _.template($('#discipline-list-template').html());
+    $('#result-set').append(this.$el);
   },
   render: function(){
     this.$el.html(this.wrapper_template());
@@ -200,6 +216,7 @@ var DevelopersListView = Backbone.View.extend({
     this.wrapper_template =
       _.template($('#developers-list-view-wrapper-template').html());
     this.template = _.template($('#developer-list-template').html());
+    $('#result-set').append(this.$el);
   },
   render: function(){
     this.$el.html(this.wrapper_template());
@@ -234,6 +251,7 @@ var TechnologiesListView = Backbone.View.extend({
     this.wrapper_template =
       _.template($('#technologies-list-view-wrapper-template').html());
     this.template = _.template($('#technology-list-template').html());
+    $('#result-set').append(this.$el);
   },
   render: function(){
     this.$el.html(this.wrapper_template());
@@ -265,10 +283,10 @@ var models = {
   technology: Technology
 };
 
-/*var detail_views = {
+var detail_views = {
   lab: LabView,
-  institute: InstituteView
-};*/
+  //institute: InstituteView
+};
 
 var list_views = {
   lab: LabsListView,
