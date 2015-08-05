@@ -101,7 +101,7 @@ var Institute = Backbone.Model.extend({});
 
 var Institutes = Backbone.Collection.extend({
   model: Institute,
-  url: "http://localhost:5000/institutes",
+  url: VLD.DS_URL + "/institutes",
   initialize: function() {
     console.log("Institutes initialize");
   }
@@ -109,120 +109,127 @@ var Institutes = Backbone.Collection.extend({
 
 // Institutes List View
 var InstitutesListView = Backbone.View.extend({
-  initialize: function () {
-    this.main_template = _.template($('#institutesview-root-template').html()),
-    this.institute_template = _.template($('#institute-model-template').html()),
-    _.bindAll(this, "render");
+  events:{
+    'click .list': 'showInstDetail'
   },
+  initialize: function () {
+    this.wrapper_template =
+      _.template($('#institutes-list-view-wrapper-template').html());
+    this.template = _.template($('#institute-list-template').html());
+    },
   render: function(){
-    console.log("render")
-      console.log(this.collection.length);
-    this.$el.html(this.main_template());
+    this.$el.html(this.wrapper_template());
+    this.$inst_el = $('#inst-list');
     this.collection.each(function(institute) {
-      console.log(this);
-      $('#institutes-table').append(this.institute_template({
-        name: institute.get('name')
-      }));
+      this.$inst_el.append(this.template(institute.toJSON()));
     }, this);
+  },
+  showInstDetail: function(event) {
+    var inst_id = $(event.currentTarget).attr('inst-list');
+    console.log('clicked', inst_id);
+    VLD.app_view.trigger('detail-view', 'institute', inst_id);
   }
-})
+});
 
-
-// Disciplines List View
 var Discipline = Backbone.Model.extend({});
 
 var Disciplines = Backbone.Collection.extend({
   model: Discipline,
-  url: " http://localhost:5000/disciplines",
+  url: VLD.DS_URL + "/disciplines",
   initialize: function() {
     console.log("Disciplines initialize");
   }
 });
 
+// Disciplines List View
 var DisciplinesListView = Backbone.View.extend({
-  initialize: function () {
-    this.main_template = _.template($('#disciplinesview-root-template').html()),
-    this.discipline_template = _.template($('#discipline-model-template').html()),
-    _.bindAll(this, "render");
+  events:{
+    'click .list': 'showDiscDetail'
   },
-  render:function(){
-    console.log("render")
-      console.log(this.collection.length);
-    this.$el.html(this.main_template());
+  initialize: function () {
+    this.wrapper_template =
+      _.template($('#disciplines-list-view-wrapper-template').html());
+    this.template = _.template($('#discipline-list-template').html());
+  },
+  render: function(){
+    this.$el.html(this.wrapper_template());
+    this.$disc_el = $('#disc-list');
     this.collection.each(function(discipline) {
-      console.log(this);
-      $('#disciplines-table').append(this.discipline_template({
-        name: discipline.get('name')
-      }));
+      this.$disc_el.append(this.template(discipline.toJSON()));
     }, this);
+  },
+  showDiscDetail: function(event) {
+    var disc_id = $(event.currentTarget).attr('disc-list');
+    console.log('clicked', disc_id);
+    VLD.app_view.trigger('detail-view', 'disciplines', disc_id);
   }
-})
+});
 
-
-// Developers List View
 var Developer = Backbone.Model.extend({});
 
 var Developers = Backbone.Collection.extend({
   model: Developer,
-  url: " http://localhost:5000/developers",
+  url: VLD.DS_URL + "/developers",
   initialize: function() {
     console.log("Developers initialize");
   }
 });
 
+// Developers List View
 var DevelopersListView = Backbone.View.extend({
-  el: $('#result-set'),
-  initialize: function () {
-    this.main_template = _.template($('#developersview-root-template').html()),
-    this.developer_template = _.template($('#developer-model-template').html()),
-    _.bindAll(this, "render");
+  events:{
+    'click .list': 'showDevDetail'
   },
-  render:function(){
-    console.log("render")
-      console.log(this.collection.length);
-    this.$el.html(this.main_template());
+  initialize: function () {
+    this.wrapper_template =
+      _.template($('#developers-list-view-wrapper-template').html());
+    this.template = _.template($('#developer-list-template').html());
+  },
+  render: function(){
+    this.$el.html(this.wrapper_template());
+    this.$dev_el = $('#dev-list');
     this.collection.each(function(developer) {
-      console.log(this);
-      $('#developers-table').append(this.developer_template({
-        instituteid: developer.get('institute_id'),
-        developername: developer.get('name'),
-        emailid: developer.get('email_id')
-      }));
+      this.$dev_el.append(this.template(developer.toJSON()));
     }, this);
+  },
+  showDevDetail: function(event) {
+    var dev_id = $(event.currentTarget).attr('dev-list');
+    console.log('clicked', dev_id);
+    VLD.app_view.trigger('detail-view', 'developers', dev_id);
   }
-})
+});
 
-
-// Technologies List View
 var Technology = Backbone.Model.extend({});
 
 var Technologies = Backbone.Collection.extend({
   model: Technology,
-  url: "http://localhost:5000/technologies",
+  url: VLD.DS_URL + "/technologies",
   initialize: function() {
     console.log("Technologies initialize");
   }
 });
 
+// Technologies List View
 var TechnologiesListView = Backbone.View.extend({
-  el: $('#result-set'),
+  events:{
+    'click .list': 'showTechDetail'
+  },
   initialize: function () {
-    this.main_template = _.template($('#technologyview-root-template').html()),
-    this.technology_template = _.template($('#technology-model-template').html()),
-    _.bindAll(this, "render");
+    this.wrapper_template =
+      _.template($('#technologies-list-view-wrapper-template').html());
+    this.template = _.template($('#technology-list-template').html());
   },
   render: function(){
-    console.log("render")
-      console.log(this.collection.length);
-    this.$el.html(this.main_template());
+    this.$el.html(this.wrapper_template());
+    this.$tech_el = $('#tech-list');
     this.collection.each(function(technology) {
-      console.log(this);
-      $('#technologies-table').append(this.technology_template({
-        id: technology.get('id'),
-        name: technology.get('name'),
-        foss: technology.get('foss')
-      }));
+      this.$tech_el.append(this.template(technology.toJSON()));
     }, this);
+  },
+  showTechDetail: function(event) {
+    var tech_id = $(event.currentTarget).attr('tech-list');
+    console.log('clicked', tech_id);
+    VLD.app_view.trigger('detail-view', 'technologies', tech_id);
   }
 });
 
@@ -241,6 +248,11 @@ var models = {
   discipline: Discipline,
   technology: Technology
 };
+
+/*var detail_views = {
+  lab: LabView,
+  institute: InstituteView
+};*/
 
 var list_views = {
   lab: LabsListView,
