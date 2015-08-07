@@ -77,6 +77,12 @@ var AppView = Backbone.View.extend({
       model: model
     });
     this.current_view.render();
+  },
+  get_institutes: function() {
+    return [{"id":1,"name":"Amrita University"},{"id":2,"name":"COEP"},{"id":3,"name":"Dayalbagh"},{"id":4,"name":"IIIT-H"},{"id":5,"name":"IIT-Bombay"},{"id":6,"name":"IIT-Delhi"},{"id":7,"name":"IIT-Guwahati"},{"id":8,"name":"IIT-Kanpur"},{"id":9,"name":"IIT-Kharagpur"},{"id":10,"name":"IIT-Madras"},{"id":11,"name":"IIT-Roorkee"},{"id":12,"name":"NIT-K"}];
+  },
+  get_disciplines: function() {
+    return [{"id":1,"name":"Aerospace Engineering"},{"id":2,"name":"Biotechnology and Biomedical Engineering"},{"id":3,"name":"Chemical Engineering"},{"id":4,"name":"Chemical Sciences"},{"id":5,"name":"Civil Engineering"},{"id":6,"name":"Computer Science and Engineering"},{"id":7,"name":"Electrical Engineering"},{"id":8,"name":"Electronics and Communications"},{"id":9,"name":"Humanities"},{"id":10,"name":"Mechanical Engineering"},{"id":11,"name":"Physical Sciences"},{"id":12,"name":"Textile Engineering"},{"id":13,"name":"Design Engineering"},{"id":14,"name":"Material Sciences"},{"id":15,"name":"Unknown"}];
   }
 });
 
@@ -118,16 +124,35 @@ var LabsListView = Backbone.View.extend({
 });
 
 var LabView = Backbone.View.extend({
+  events: {
+    'click #update-btn': 'render_update_view',
+    'click #add-tech': 'add_technology'
+  },
   initialize: function () {
     console.log("initialized");
     console.log(this);
     this.template = _.template($('#lab-detailed-template').html());
+    this.update_template = _.template($('#lab-update-template').html());
+    this.tag_template = _.template($('#tag-template').html());
     $('#result-set').append(this.$el);
   },
   render: function() {
     console.log('rendering..');
     //console.log(this.model, this.model.toJSON);
     this.$el.html(this.template(this.model.toJSON()));
+  },
+  render_update_view: function() {
+    console.log('rendering update view');
+    var instts = VLD.app_view.get_institutes();
+    var discs = VLD.app_view.get_disciplines();
+    this.$el.html(this.update_template({
+      lab: this.model.toJSON(),
+      instts: instts,
+      discs: discs
+    }));
+  },
+  add_technology: function() {
+    var tech = $('#lab-tech-select option:selected').val();
   }
 });
 

@@ -20,11 +20,21 @@
   cursor: pointer;
   background: #EEE;
 }
-
 .detail-view {
   margin-top: 1%;
 }
-
 .update-button-alignment{
-  margin-top: 5px; 
+  margin-top: 5px;
+}
+.tag-wrapper {
+  margin-bottom: 10px;
+}
+.tag {
+  border: 1px solid #333;
+  padding: 2px;
+}
+.tag .remove{
+  margin-left: 3px;
+  border-left: 1px solid #333;
+  padding: 0 2px;
 }
