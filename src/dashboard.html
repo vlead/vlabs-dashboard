@@ -130,7 +130,7 @@
         </div>
         <div class="row detail">
           <div class="col-md-4">Experiments </div>
-          <div class="col-md-8"> <%= number_of_experiments %> </div>
+          <div class="col-md-8" id="exp-link"> <%= number_of_experiments %> - <a> Experiments List </a> </div>
         </div>
         <div class="row detail">
           <div class="col-md-4">Developers </div>
@@ -308,6 +308,32 @@
         <%= name %>
         <a class="remove" href="#">&times;</a>
       </span>
+    </div>
+  </script>
+
+  <script type="text/template" id="expts-list-view-wrapper-template">
+    <div class="list-header">
+      <div class="row list-info">
+        <div class="">Total number of experiments: <b><%= this.collection.length %></b> </div>
+      </div>
+      <div class="row list-heading">
+        <div class="col-md-3"> Name </div>
+      //  <div class="col-md-3"> Lab Name </div>
+      //  <div class="col-md-2"> Content On </div>
+      //  <div class="col-md-2"> Simulation On </div>
+      //  <div class="col-md-2"> Technologies </div>
+      </div>
+    </div>
+    <div id="expt-list"></div>
+  </script>
+
+  <script type="text/template" id="expt-list-template">
+    <div class="row list" data-expt="<%= id %>">
+      <div class="col-md-3"> <%= name %> </div>
+    //  <div class="col-md-3"> <%= name %> </div>
+    //  <div class="col-md-2"> <%= content_url %> </div>
+    //  <div class="col-md-2"> <%= simulation_url %> </div>
+    //  <div class="col-md-2"> <%= name %> </div>
     </div>
   </script>
 

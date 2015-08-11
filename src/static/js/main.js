@@ -126,7 +126,8 @@ var LabsListView = Backbone.View.extend({
 var LabView = Backbone.View.extend({
   events: {
     'click #update-btn': 'render_update_view',
-    'click #add-tech': 'add_technology'
+    'click #add-tech': 'add_technology',
+    'click #exp-link': 'viewExptsOfLab' 
   },
   initialize: function () {
     console.log("initialized");
@@ -153,6 +154,60 @@ var LabView = Backbone.View.extend({
   },
   add_technology: function() {
     var tech = $('#lab-tech-select option:selected').val();
+  },
+  viewExptsOfLab: function(event) {
+    console.log('something works');
+      if(this.current_view) {
+        this.current_view.remove();
+      }
+    var collection = new Experiments();
+    console.log('Fetching collection', collection.fetch());
+    collection.fetch({
+      success: function(coll, response, opts) {
+        console.log("Logging value of this");
+        console.log(this);
+        this.fetched_collection = collection;
+      },
+      error: function(coll, response, opts) {
+        alert("Error retrieving info");
+      }
+    });
+
+    var current_view = new ExperimentsOfLabListView({
+      collection: this.fetched_collection
+    });
+    console.log('current_view:', current_view);
+    console.log('this.current_view:', this.current_view);
+    current_view.render();
+  }
+});
+
+var Experiment = Backbone.Model.extend({});
+
+var Experiments = Backbone.Collection.extend({
+  model: Discipline,
+  url: VLD.DS_URL + "/disciplines",
+  initialize: function() {
+    console.log("Experiments initialize");
+  }
+});
+
+// List View Of Experiments Of a Lab
+var ExperimentsOfLabListView = Backbone.View.extend({
+  initialize: function() {
+    this.wrapper_template =
+      _.template($('#expts-list-view-wrapper-template').html());
+    this.template = _.template($('#expt-list-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering experiments list');
+    console.log('total experiments: ', this.collection.length);
+    this.$el.html(this.wrapper_template());
+    this.$expt_el = $('#expt-list');
+    this.collection.each(function(discipline) {
+      this.$expt_el.append(this.template(discipline.toJSON()));
+    }, this);
   }
 });
 
