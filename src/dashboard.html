@@ -83,6 +83,14 @@
           <div class="col-md-8"><%= name %> </div>
         </div>
         <div class="row detail">
+          <div class="col-md-4"> Lab ID </div>
+          <div class="col-md-8"><%= old_lab_id %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Mnemonic </div>
+          <div class="col-md-8"><%= slug %> </div>
+        </div>
+        <div class="row detail">
           <div class="col-md-4"> Discipline </div>
           <div class="col-md-8"> <%= discipline.name %> </div>
         </div>
@@ -162,6 +170,18 @@
           <div class="col-md-4"> Name </div>
           <div class="col-md-8">
             <input type="text" value="<%= lab.name %>" class="form-control">
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Lab ID </div>
+          <div class="col-md-8">
+            <input type="text" value="<%= lab.old_lab_id %>" class="form-control">
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Mnemonic </div>
+          <div class="col-md-8">
+            <input type="text" value="<%= lab.slug %>" class="form-control">
           </div>
         </div>
         <div class="row detail">
