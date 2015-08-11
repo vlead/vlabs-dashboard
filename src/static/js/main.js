@@ -11,6 +11,7 @@ var AppView = Backbone.View.extend({
   initialize: function() {
     this.on('detail-view', this.show_detail_view);
     this.on('update-view', this.show_update_view);
+    this.on('expts-of-lab-view', this.show_exp_of_lab_view);
     this.fetched_collections = {};
   },
   onSelect: function(e) {
@@ -101,6 +102,18 @@ var AppView = Backbone.View.extend({
     });
     this.current_view.render();
   },
+  show_exp_of_lab_view: function(collection) {
+    console.log("show_exp_of_lab_view...", collection);
+    if(this.current_view) {
+      this.current_view.remove();
+    }
+    this.current_view = new ExperimentsOfLabListView({
+      collection: collection
+    });
+    this.current_view.render();
+    
+  },
+    
   get_institutes: function() {
     return [
       {
@@ -259,7 +272,7 @@ var LabsListView = Backbone.View.extend({
 var LabDetailView = Backbone.View.extend({
   events: {
     'click #update-btn': 'show_update_view',
-    'click #exp-link': 'view_expts_of_lab'
+    'click #exp-link': 'expts_of_lab'
   },
   initialize: function () {
     console.log('LabDetailView initialized');
@@ -275,32 +288,23 @@ var LabDetailView = Backbone.View.extend({
   show_update_view: function() {
     VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
   },
-  view_expts_of_lab: function(event) {
-    console.log('something works');
-      if(this.current_view) {
-        this.current_view.remove();
-      }
-    var collection = new Experiments();
-    console.log('Fetching collection', collection.fetch());
-    collection.fetch({
-      success: function(coll, response, opts) {
-        console.log("Logging value of this");
-        console.log(this);
-        this.fetched_collection = collection;
-      },
+  expts_of_lab: function(event) {
+    console.log("expts_of_lab");
+    var experiments = new Experiments();
+    experiments.url = this.model.url() + '/experiments'
+    console.log(experiments.url);
+    experiments.fetch({
+      success: function(coll, response, opts)
+	{
+	  VLD.app_view.trigger('expts-of-lab-view', experiments);
+	},
       error: function(coll, response, opts) {
-        alert("Error retrieving info");
+	alert('Error retrieving info');
       }
     });
-
-    var current_view = new ExperimentsOfLabListView({
-    collection: this.fetched_collection
-    });
-    console.log('current_view:', current_view);
-    console.log('this.current_view:', this.current_view);
-    this.current_view.render();
   }
 });
+
 
 var LabUpdateView = Backbone.View.extend({
   events: {
@@ -326,18 +330,19 @@ var LabUpdateView = Backbone.View.extend({
   }
 });
 
+// Experiments List View
 var Experiment = Backbone.Model.extend({});
-
 var Experiments = Backbone.Collection.extend({
-  model: Discipline,
-  url: VLD.DS_URL + "/disciplines",
-  initialize: function() {
+  model: Experiment,
+    initialize: function() {
     console.log("Experiments initialize");
   }
 });
 
 // List View Of Experiments Of a Lab
+
 var ExperimentsOfLabListView = Backbone.View.extend({
+    
   initialize: function() {
     this.wrapper_template =
       _.template($('#expts-list-view-wrapper-template').html());
@@ -353,6 +358,7 @@ var ExperimentsOfLabListView = Backbone.View.extend({
       this.$expt_el.append(this.template(discipline.toJSON()));
     }, this);
   }
+  
 });
 
 var Institute = Backbone.Model.extend({});
