@@ -83,6 +83,14 @@
           <div class="col-md-8"><%= name %> </div>
         </div>
         <div class="row detail">
+          <div class="col-md-4"> Lab ID </div>
+          <div class="col-md-8"><%= old_lab_id %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Mnemonic </div>
+          <div class="col-md-8"><%= slug %> </div>
+        </div>
+        <div class="row detail">
           <div class="col-md-4"> Discipline </div>
           <div class="col-md-8"> <%= discipline.name %> </div>
         </div>
@@ -184,6 +192,18 @@
           <div class="col-md-4"> Name </div>
           <div class="col-md-8">
             <input type="text" value="<%= lab.name %>" class="form-control">
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Lab ID </div>
+          <div class="col-md-8">
+            <input type="text" value="<%= lab.old_lab_id %>" class="form-control">
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Mnemonic </div>
+          <div class="col-md-8">
+            <input type="text" value="<%= lab.slug %>" class="form-control">
           </div>
         </div>
         <div class="row detail">
@@ -336,14 +356,13 @@
   <script type="text/template" id="expts-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
-        <div class="">Total number of experiments: <b><%= this.collection.length %></b> </div>
+	<div class="">Total number of experiments: <b><%= this.collection.length %></b> </div>
       </div>
       <div class="row list-heading">
         <div class="col-md-3"> Name </div>
-      //  <div class="col-md-3"> Lab Name </div>
-      //  <div class="col-md-2"> Content On </div>
-      //  <div class="col-md-2"> Simulation On </div>
-      //  <div class="col-md-2"> Technologies </div>
+        <div class="col-md-3"> Content On </div>
+        <div class="col-md-3"> Simulation On </div>
+        <div class="col-md-2"> Technologies </div>
       </div>
     </div>
     <div id="expt-list"></div>
@@ -352,10 +371,9 @@
   <script type="text/template" id="expt-list-template">
     <div class="row list" data-expt="<%= id %>">
       <div class="col-md-3"> <%= name %> </div>
-    //  <div class="col-md-3"> <%= name %> </div>
-    //  <div class="col-md-2"> <%= content_url %> </div>
-    //  <div class="col-md-2"> <%= simulation_url %> </div>
-    //  <div class="col-md-2"> <%= name %> </div>
+      <div class="col-md-3"> <%= content_url %> </div>
+      <div class="col-md-3"> <%= simulation_url %> </div>
+      <div class="col-md-2">  null </div>
     </div>
   </script>
 
