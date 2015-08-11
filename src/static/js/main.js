@@ -390,6 +390,30 @@ var InstitutesListView = Backbone.View.extend({
   }
 });
 
+var InstituteDetailView = Backbone.View.extend({
+  events: {
+    'click #update-btn': 'show_update_view',
+    'click #exp-link': 'viewExptsOfLab'
+  },
+  initialize: function () {
+    console.log('InstDetailView initialized');
+    console.log(this);
+    this.template = _.template($('#inst-detailed-template').html());
+
+    $('#result-set').append(this.$el);
+
+  },
+  render: function() {
+    console.log('rendering..');
+    console.log(this.model.toJSON);
+    console.log(this.model)
+    this.$el.html(this.template(this.model.toJSON()));
+  },
+  show_update_view: function() {
+    VLD.app_view.trigger('update-view', 'institute', this.model.get('id'))
+  }
+});
+
 var Discipline = Backbone.Model.extend({});
 
 var Disciplines = Backbone.Collection.extend({
@@ -460,6 +484,27 @@ var DevelopersListView = Backbone.View.extend({
   }
 });
 
+var DeveloperDetailView = Backbone.View.extend({
+  events: {
+    'click #update-btn': 'show_update_view',
+    'click #exp-link': 'viewExptsOfLab'
+  },
+  initialize: function () {
+    console.log('DeveloperDetailView initialized');
+    //console.log(this);
+    this.template = _.template($('#developers-detailed-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering..');
+    //console.log(this.model, this.model.toJSON);
+    this.$el.html(this.template(this.model.toJSON()));
+  },
+  show_update_view: function() {
+    VLD.app_view.trigger('update-view', 'developer', this.model.get('id'))
+  }
+});
+
 var Technology = Backbone.Model.extend({});
 
 var Technologies = Backbone.Collection.extend({
@@ -513,11 +558,13 @@ var models = {
 
 var detail_views = {
   lab: LabDetailView,
-  //institute: InstituteView
+  institute: InstituteDetailView,
+  developer: DeveloperDetailView
 };
 
 var update_views = {
-  lab: LabUpdateView
+  lab: LabUpdateView,
+  //developer: DeveloperUpdateView
 };
 
 var list_views = {
