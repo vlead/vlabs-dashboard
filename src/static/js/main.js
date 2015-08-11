@@ -259,7 +259,7 @@ var LabsListView = Backbone.View.extend({
 var LabDetailView = Backbone.View.extend({
   events: {
     'click #update-btn': 'show_update_view',
-    'click #exp-link': 'viewExptsOfLab'
+    'click #exp-link': 'view_expts_of_lab'
   },
   initialize: function () {
     console.log('LabDetailView initialized');
@@ -274,6 +274,31 @@ var LabDetailView = Backbone.View.extend({
   },
   show_update_view: function() {
     VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
+  },
+  view_expts_of_lab: function(event) {
+    console.log('something works');
+      if(this.current_view) {
+        this.current_view.remove();
+      }
+    var collection = new Experiments();
+    console.log('Fetching collection', collection.fetch());
+    collection.fetch({
+      success: function(coll, response, opts) {
+        console.log("Logging value of this");
+        console.log(this);
+        this.fetched_collection = collection;
+      },
+      error: function(coll, response, opts) {
+        alert("Error retrieving info");
+      }
+    });
+
+    var current_view = new ExperimentsOfLabListView({
+    collection: this.fetched_collection
+    });
+    console.log('current_view:', current_view);
+    console.log('this.current_view:', this.current_view);
+    this.current_view.render();
   }
 });
 
@@ -298,31 +323,6 @@ var LabUpdateView = Backbone.View.extend({
   },
   add_technology: function() {
     var tech = $('#lab-tech-select option:selected').val();
-  },
-  viewExptsOfLab: function(event) {
-    console.log('something works');
-      if(this.current_view) {
-        this.current_view.remove();
-      }
-    var collection = new Experiments();
-    console.log('Fetching collection', collection.fetch());
-    collection.fetch({
-      success: function(coll, response, opts) {
-        console.log("Logging value of this");
-        console.log(this);
-        this.fetched_collection = collection;
-      },
-      error: function(coll, response, opts) {
-        alert("Error retrieving info");
-      }
-    });
-
-    var current_view = new ExperimentsOfLabListView({
-      collection: this.fetched_collection
-    });
-    console.log('current_view:', current_view);
-    console.log('this.current_view:', this.current_view);
-    current_view.render();
   }
 });
 
