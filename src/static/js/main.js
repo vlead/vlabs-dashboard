@@ -9,7 +9,8 @@ var AppView = Backbone.View.extend({
     'change #category': 'onSelect'
   },
   initialize: function() {
-    this.on('detail-view', this.showDetailView);
+    this.on('detail-view', this.show_detail_view);
+    this.on('update-view', this.show_update_view);
     this.fetched_collections = {};
   },
   onSelect: function(e) {
@@ -56,7 +57,7 @@ var AppView = Backbone.View.extend({
     console.log('showListView() current view:', this.current_view);
     this.current_view.render();
   },
-  showDetailView: function(type, id) {
+  show_detail_view: function(type, id) {
     console.log('detailed view', type, id);
     var model = this.fetched_collections[type].find({id: parseInt(id)});
     if(!model) {
@@ -65,7 +66,7 @@ var AppView = Backbone.View.extend({
     }
     console.log(model);
     //the type of detailed view do not exist!
-    if(!detail_views.hasOwnProperty(type)) {
+    if(!_.has(detail_views, type)) {
       return;
     }
     //TODO: maybe a later optimization could be to not destroy the views, but
@@ -78,11 +79,143 @@ var AppView = Backbone.View.extend({
     });
     this.current_view.render();
   },
+  show_update_view: function(type, id) {
+    console.log('update view', type, id);
+    var model = this.fetched_collections[type].find({id: parseInt(id)});
+    if(!model) {
+      console.log('no model found!', model);
+      return;
+    }
+    console.log(model);
+    //the type of update view do not exist!
+    if(!_.has(update_views, type)) {
+      return;
+    }
+    //TODO: maybe a later optimization could be to not destroy the views, but
+    //to switch among views..
+    if(this.current_view) {
+      this.current_view.remove();
+    }
+    this.current_view = new update_views[type]({
+      model: model
+    });
+    this.current_view.render();
+  },
   get_institutes: function() {
-    return [{"id":1,"name":"Amrita University"},{"id":2,"name":"COEP"},{"id":3,"name":"Dayalbagh"},{"id":4,"name":"IIIT-H"},{"id":5,"name":"IIT-Bombay"},{"id":6,"name":"IIT-Delhi"},{"id":7,"name":"IIT-Guwahati"},{"id":8,"name":"IIT-Kanpur"},{"id":9,"name":"IIT-Kharagpur"},{"id":10,"name":"IIT-Madras"},{"id":11,"name":"IIT-Roorkee"},{"id":12,"name":"NIT-K"}];
+    return [
+      {
+        "id": 1,
+        "name": "Amrita University"
+      },
+      {
+        "id": 2,
+        "name": "COEP"
+      },
+      {
+        "id": 3,
+        "name": "Dayalbagh"
+      },
+      {
+        "id": 4,
+        "name": "IIIT-H"
+      },
+      {
+        "id": 5,
+        "name": "IIT-Bombay"
+      },
+      {
+        "id": 6,
+        "name": "IIT-Delhi"
+      },
+      {
+        "id": 7,
+        "name": "IIT-Guwahati"
+      },
+      {
+        "id": 8,
+        "name": "IIT-Kanpur"
+      },
+      {
+        "id": 9,
+        "name": "IIT-Kharagpur"
+      },
+      {
+        "id": 10,
+        "name": "IIT-Madras"
+      },
+      {
+        "id": 11,
+        "name": "IIT-Roorkee"
+      },
+      {
+        "id": 12,
+        "name": "NIT-K"
+      }
+    ]
   },
   get_disciplines: function() {
-    return [{"id":1,"name":"Aerospace Engineering"},{"id":2,"name":"Biotechnology and Biomedical Engineering"},{"id":3,"name":"Chemical Engineering"},{"id":4,"name":"Chemical Sciences"},{"id":5,"name":"Civil Engineering"},{"id":6,"name":"Computer Science and Engineering"},{"id":7,"name":"Electrical Engineering"},{"id":8,"name":"Electronics and Communications"},{"id":9,"name":"Humanities"},{"id":10,"name":"Mechanical Engineering"},{"id":11,"name":"Physical Sciences"},{"id":12,"name":"Textile Engineering"},{"id":13,"name":"Design Engineering"},{"id":14,"name":"Material Sciences"},{"id":15,"name":"Unknown"}];
+    return [
+      {
+        "id": 1,
+        "name": "Aerospace Engineering"
+      },
+      {
+        "id": 2,
+        "name": "Biotechnology and Biomedical Engineering"
+      },
+      {
+        "id": 3,
+        "name": "Chemical Engineering"
+      },
+      {
+        "id": 4,
+        "name": "Chemical Sciences"
+      },
+      {
+        "id": 5,
+        "name": "Civil Engineering"
+      },
+      {
+        "id": 6,
+        "name": "Computer Science and Engineering"
+      },
+      {
+        "id": 7,
+        "name": "Electrical Engineering"
+      },
+      {
+        "id": 8,
+        "name": "Electronics and Communications"
+      },
+      {
+        "id": 9,
+        "name": "Humanities"
+      },
+      {
+        "id": 10,
+        "name": "Mechanical Engineering"
+      },
+      {
+        "id": 11,
+        "name": "Physical Sciences"
+      },
+      {
+        "id": 12,
+        "name": "Textile Engineering"
+      },
+      {
+        "id": 13,
+        "name": "Design Engineering"
+      },
+      {
+        "id": 14,
+        "name": "Material Sciences"
+      },
+      {
+        "id": 15,
+        "name": "Unknown"
+      }
+    ]
   }
 });
 
@@ -123,17 +256,14 @@ var LabsListView = Backbone.View.extend({
   }
 });
 
-var LabView = Backbone.View.extend({
+var LabDetailView = Backbone.View.extend({
   events: {
-    'click #update-btn': 'render_update_view',
-    'click #add-tech': 'add_technology'
+    'click #update-btn': 'show_update_view'
   },
   initialize: function () {
-    console.log("initialized");
-    console.log(this);
+    console.log('LabDetailView initialized');
+    //console.log(this);
     this.template = _.template($('#lab-detailed-template').html());
-    this.update_template = _.template($('#lab-update-template').html());
-    this.tag_template = _.template($('#tag-template').html());
     $('#result-set').append(this.$el);
   },
   render: function() {
@@ -141,11 +271,25 @@ var LabView = Backbone.View.extend({
     //console.log(this.model, this.model.toJSON);
     this.$el.html(this.template(this.model.toJSON()));
   },
-  render_update_view: function() {
+  show_update_view: function() {
+    VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
+  }
+});
+
+var LabUpdateView = Backbone.View.extend({
+  events: {
+    'click #add-tech': 'add_technology'
+  },
+  initialize: function() {
+    this.template = _.template($('#lab-update-template').html());
+    this.tag_template = _.template($('#tag-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
     console.log('rendering update view');
     var instts = VLD.app_view.get_institutes();
     var discs = VLD.app_view.get_disciplines();
-    this.$el.html(this.update_template({
+    this.$el.html(this.template({
       lab: this.model.toJSON(),
       instts: instts,
       discs: discs
@@ -313,8 +457,12 @@ var models = {
 };
 
 var detail_views = {
-  lab: LabView,
+  lab: LabDetailView,
   //institute: InstituteView
+};
+
+var update_views = {
+  lab: LabUpdateView
 };
 
 var list_views = {

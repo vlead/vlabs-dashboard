@@ -168,7 +168,7 @@
           <div class="col-md-4"> Discipline </div>
           <div class="col-md-8">
             <select id="discipline-select" class="form-control">
-              <% _.each(discs, function(disc) { console.log(disc); %>
+              <% _.each(discs, function(disc) { %>
                 <option value="<%= disc.id %>"
                   <% if(lab.discipline.name == disc.name) { %> selected <% } %>>
                   <%= disc.name %>
@@ -181,7 +181,7 @@
           <div class="col-md-4"> Institute </div>
           <div class="col-md-8">
             <select id="institute-select" class="form-control">
-              <% _.each(instts, function(instt) { console.log(instt); %>
+              <% _.each(instts, function(instt) { %>
                 <option value="<%= instt.id %>"
                   <% if(lab.institute.name == instt.name) { %> selected <% } %>>
                   <%= instt.name %>
