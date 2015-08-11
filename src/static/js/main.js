@@ -258,7 +258,7 @@ var LabsListView = Backbone.View.extend({
 
 var LabDetailView = Backbone.View.extend({
   events: {
-    'click #update-btn': 'show_update_view'
+    'click #update-btn': 'show_update_view',
     'click #exp-link': 'viewExptsOfLab'
   },
   initialize: function () {
