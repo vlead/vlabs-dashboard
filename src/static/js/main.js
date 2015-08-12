@@ -806,8 +806,6 @@ var TechnologyDetailView = Backbone.View.extend({
   }
 });
 
-//TODO: Need to work on Update view as it is throwing some 
-//error while updating technologies.
 var TechnologyUpdateView = Backbone.View.extend({
   events: {
     'click #cancel-btn': 'cancel_update',
@@ -848,7 +846,7 @@ var TechnologyUpdateView = Backbone.View.extend({
   get_attrs_from_form: function() {
     return {
       name: $('#technology-name').val(),
-      foss: $ ('#technology-foss').val(),
+      foss: $ ('#foss-select').val(),
       version: $ ('#technology-version').val()
     };
   }  

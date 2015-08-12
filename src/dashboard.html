@@ -698,13 +698,13 @@
           <div class="row detail">
             <div class="col-md-4"> FOSS </div>
             <div class="col-md-8">
-              <select id="project-phase-select" class="form-control">
+              <select id="foss-select" class="form-control">
                 <% if(technology.foss) { %>
-                <option value="false">No</option>
-                <option value="true" selected>Yes</option>
+                <option value="0">No</option>
+                <option value="1" selected>Yes</option>
                 <% } else { %>
-                <option value="false" selected>No</option>
-                <option value="true">Yes</option>
+                <option value="0" selected>No</option>
+                <option value="1">Yes</option>
                 <% } %>
               </select>
             </div>
