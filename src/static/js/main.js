@@ -304,6 +304,8 @@ var LabDetailView = Backbone.View.extend({
 
 var LabUpdateView = Backbone.View.extend({
   events: {
+    'click #cancel-btn': 'cancel_update',
+    'click #save-btn': 'save',
     'click #add-tech': 'add_technology'
   },
   initialize: function() {
@@ -313,16 +315,60 @@ var LabUpdateView = Backbone.View.extend({
   },
   render: function() {
     console.log('rendering update view');
-    var instts = VLD.app_view.get_institutes();
-    var discs = VLD.app_view.get_disciplines();
+    this.instts = VLD.app_view.get_institutes();
+    this.discs = VLD.app_view.get_disciplines();
     this.$el.html(this.template({
       lab: this.model.toJSON(),
-      instts: instts,
-      discs: discs
+      instts: this.instts,
+      discs: this.discs
     }));
   },
   add_technology: function() {
     var tech = $('#lab-tech-select option:selected').val();
+  },
+  cancel_update: function() {
+    // cancelling an update is aborting current changes and going back to the
+    // detailed view. Hence, the operation would be just to trigger a detail
+    // view to the controller
+    VLD.app_view.trigger('detail-view', 'lab', this.model.get('id'));
+  },
+  save: function() {
+    var self = this;
+    //console.log('original model', this.model.toJSON());
+    var attrs = this.get_attrs_from_form();
+    //console.log('new attrs', attrs);
+    this.model.set(attrs);
+    //console.log('new model', this.model.toJSON());
+    //console.log('saving updated model');
+    this.model.save({}, {
+      success: function() {
+        //console.log('save success');
+        VLD.app_view.trigger('detail-view', 'lab', self.model.get('id'));
+      },
+      error: function() {
+        alert('Error saving lab details. Please try again');
+      }
+    });
+  },
+  get_attrs_from_form: function() {
+    var disc_id = parseInt($('#discipline-select option:selected').val());
+    var discipline = _.find(this.discs, {id: disc_id});
+    var instt_id = parseInt($('#institute-select option:selected').val());
+    var institute = _.find(this.instts, {id: instt_id});
+    return {
+      name: $('#lab-name').val(),
+      old_lab_id: $('#lab-id').val(),
+      slug: $('#lab-slug').val(),
+      discipline: discipline,
+      institute: institute,
+      is_phase_2_lab: parseBool($('#project-phase-select option:selected').val()),
+      is_src_avail: parseBool($('#is-src-avail-select option:selected').val()),
+      repo_url: $('#lab-repo-url').val(),
+      is_hosted: parseBool($('#is-hosted-select option:selected').val()),
+      //hosted_on: '',
+      hosted_url: $('#lab-hosted-url').val(),
+      remarks: $('#lab-remarks').val()
+    };
   }
 });
 
@@ -531,6 +577,18 @@ var list_views = {
 function init() {
   $.ajaxSetup({crossDomain: true});
   VLD.app_view = new AppView();
+}
+
+function parseBool(str) {
+  // the JSON parser can parse boolean values from string
+  // hence leveraging that..
+  return JSON.parse(str);
+}
+
+// assumes you are passing a URL. Makes a linkable(<a> tag) HTML, which opens
+// in a new tab, and returns it
+VLD.linkify = function(str) {
+  return '<a target="_blank" href="' + str + '">' + str + '</a>';
 }
 
 window.onload = function() {

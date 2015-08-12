@@ -120,7 +120,7 @@
         </div>
         <div class="row detail">
           <div class="col-md-4">Repo URL </div>
-          <div class="col-md-8"><%= repo_url %> </div>
+          <div class="col-md-8"><%= VLD.linkify(repo_url) %> </div>
         </div>
         <div class="row detail">
           <div class="col-md-4">Hosted </div>
@@ -130,7 +130,7 @@
         </div>
         <div class="row detail">
           <div class="col-md-4">Hosted URL </div>
-          <div class="col-md-8"> <%= hosted_url %> </div>
+          <div class="col-md-8"> <%= VLD.linkify(hosted_url) %> </div>
         </div>
         <div class="row detail">
           <div class="col-md-4">Remarks </div>
@@ -169,19 +169,19 @@
         <div class="row detail">
           <div class="col-md-4"> Name </div>
           <div class="col-md-8">
-            <input type="text" value="<%= lab.name %>" class="form-control">
+            <input id="lab-name" type="text" value="<%= lab.name %>" class="form-control">
           </div>
         </div>
         <div class="row detail">
           <div class="col-md-4"> Lab ID </div>
           <div class="col-md-8">
-            <input type="text" value="<%= lab.old_lab_id %>" class="form-control">
+            <input id="lab-id" type="text" value="<%= lab.old_lab_id %>" class="form-control">
           </div>
         </div>
         <div class="row detail">
           <div class="col-md-4"> Mnemonic </div>
           <div class="col-md-8">
-            <input type="text" value="<%= lab.slug %>" class="form-control">
+            <input id="lab-slug" type="text" value="<%= lab.slug %>" class="form-control">
           </div>
         </div>
         <div class="row detail">
@@ -249,7 +249,7 @@
         <div class="row detail">
           <div class="col-md-4">Repo URL </div>
           <div class="col-md-8">
-            <input type="text" class="form-control" value="<%= lab.repo_url %>">
+            <input id="lab-repo-url" type="text" class="form-control" value="<%= lab.repo_url %>">
           </div>
         </div>
         <div class="row detail">
@@ -269,13 +269,13 @@
         <div class="row detail">
           <div class="col-md-4">Hosted URL </div>
           <div class="col-md-8">
-            <input type="text" class="form-control" value="<%= lab.hosted_url %>">
+            <input id="lab-hosted-url" type="text" class="form-control" value="<%= lab.hosted_url %>">
           </div>
         </div>
         <div class="row detail">
           <div class="col-md-4">Remarks </div>
           <div class="col-md-8">
-            <textarea class="form-control"><%= lab.remarks %></textarea>
+            <textarea id="lab-remarks" class="form-control"><%= lab.remarks %></textarea>
           </div>
         </div>
         <div class="row detail">
