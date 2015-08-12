@@ -163,6 +163,28 @@
     </div>
   </script>
 
+  <script type="text/template" id="inst-detailed-template">
+    <div class="detail-view">
+      <div class="details">
+        <div class="row detail">
+          <div class="col-md-4">Name </div>
+          <div class="col-md-8"> <%= name %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4">PIC </div>
+          <div class="col-md-8"> <%= PIC %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4">IIC</div>
+          <div class="col-md-8"> <%= IIC %> </div>
+        </div> 
+        <div class="update-button-alignment">
+          <button class="btn btn-default" id="update-btn">Update</button>
+        </div>
+      </div>
+    </div>	
+  </script>
+
   <script type="text/template" id="lab-update-template">
     <div class="update-view">
       <div class="details">
@@ -429,6 +451,28 @@
       <div class="col-md-3"> <%= name %> </div>
       <div class="col-md-2"> <%= email_id %> </div>
     </div>
+  </script>
+
+    <script type="text/template" id="developers-detailed-template">
+    <div class="detail-view">
+      <div class="details">
+        <div class="row detail">
+          <div class="col-md-4">Institute Name </div>
+          <div class="col-md-8"> <%= institute.name %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Developer Name </div>
+          <div class="col-md-8"> <%= name %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Email Id </div>
+          <div class="col-md-8"> <%= email_id %> </div>
+        </div> 
+        <div class="update-button-alignment">
+          <button class="btn btn-default" id="update-btn">Update</button>
+        </div>
+      </div>
+    </div>	
   </script>
 
   <script type="text/template" id="technologies-list-view-wrapper-template">
