@@ -512,8 +512,8 @@ var InstituteDetailView = Backbone.View.extend({
 
 var InstUpdateView = Backbone.View.extend({
   events: {
-    'click #cancel-btn': 'cancel_update'
-
+    'click #cancel-btn': 'cancel_update',
+    'click #save-btn': 'save'
   },
   initialize: function() {
     console.log("initialized");
@@ -530,8 +530,30 @@ var InstUpdateView = Backbone.View.extend({
   },
   cancel_update: function() {
     VLD.app_view.trigger('detail-view', 'institute', this.model.get('id'));
-  }
+  }, 
 
+  save: function() {
+    var self = this;
+    var attrs = this.get_attrs_from_form();
+    this.model.set(attrs);
+    this.model.save({}, {
+      success: function() {
+        //console.log('save success');
+        VLD.app_view.trigger('detail-view', 'institute', self.model.get('id'));
+      },
+      error: function() {
+        alert('Error saving lab details. Please try again');
+      }
+    });
+  },
+
+  get_attrs_from_form: function() {
+    return {
+      name: $('#instt-name').val(),
+      PIC: $ ('#instt-pic').val(),
+      IIC: $('#instt-iic').val()
+    };
+  }  
 });
 
 
