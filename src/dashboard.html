@@ -578,5 +578,26 @@
     </div>
   </script>
 
+
+  <script type="text/template" id="technology-list-template">
+    <div class="row list" data-tech="<%= id %>">
+      <div class="col-md-3"> <%= Temperature %> </div>
+      <div class="col-md-3">
+	<% if(celsius) { %>
+        Yes
+        <% } else { %>
+        No
+        <% } %>
+      </div>
+      <div class="col-md-3">
+        <% if(rain) { %>
+        <%= meteriology %>
+        <% } else { %>
+        null
+        <% } %>
+      </div>
+    </div>
+  </script>
+  
   </body>
 </html>
