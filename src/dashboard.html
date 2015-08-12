@@ -461,6 +461,47 @@
       </div>
     </script>
 
+    <script type="text/template" id="discipline-detailed-template">
+      <div class="detail-view">
+        <div class="details">
+          <div class="row detail">
+            <div class="col-md-4">Name </div>
+            <div class="col-md-8"> <%= name %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4">DNC </div>
+            <div class="col-md-8"> <%= dnc %> </div>
+          </div>
+          <div class="update-button-alignment">
+            <button class="btn btn-default" id="update-btn">Update</button>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="discipline-update-template">
+      <div class="update-view">
+        <div class="details">
+          <div class="row detail">
+            <div class="col-md-4"> Name </div>
+            <div class="col-md-8">
+              <input type="text" id="discipline-name" value="<%= discipline.name %>" class="form-control">
+            </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> DNC </div>
+            <div class="col-md-8">
+              <input type="text" id="discipline-dnc" value="<%= discipline.dnc %>" class="form-control">
+            </div>
+          </div>
+          <div class="update-button-alignment">
+            <button class="btn btn-default" id="cancel-btn">Cancel</button>
+            <button class="btn btn-primary" id="save-btn">Save</button>
+          </div>
+        </div>
+      </div>
+    </script>
+
     <script type="text/template" id="developers-list-view-wrapper-template">
       <div class="list-header">
         <div class="row list-info">
@@ -571,6 +612,57 @@
           <% } else { %>
             null
           <% } %>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="technology-detailed-template">
+      <div class="detail-view">
+        <div class="details">
+          <div class="row detail">
+            <div class="col-md-4">Name </div>
+            <div class="col-md-8"> <%= name %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> FOSS </div>
+            <div class="col-md-8"> <%= foss %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Version </div>
+            <div class="col-md-8"> <%= version %> </div>
+          </div>
+          <div class="update-button-alignment">
+            <button class="btn btn-default" id="update-btn">Update</button>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="technology-update-template">
+      <div class="update-view">
+        <div class="details">
+          <div class="row detail">
+            <div class="col-md-4"> Name </div>
+            <div class="col-md-8">
+              <input type="text" id="technology-name" value="<%= technology.name %>" class="form-control">
+            </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> FOSS </div>
+            <div class="col-md-8">
+              <input type="text" id="technology-foss" value="<%= technology.foss %>" class="form-control">
+            </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Version </div>
+            <div class="col-md-8">
+              <input type="text" id="technology-version" value="<%= technology.version %>" class="form-control">
+            </div>
+          </div>
+          <div class="update-button-alignment">
+            <button class="btn btn-default" id="cancel-btn">Cancel</button>
+            <button class="btn btn-primary" id="save-btn">Save</button>
+          </div>
         </div>
       </div>
     </script>
