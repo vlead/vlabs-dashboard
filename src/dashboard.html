@@ -3,20 +3,20 @@
   <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <!--link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"-->
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"-->
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
     <!-- Optional theme -->
     <!--link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"-->
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"-->
     <link rel="stylesheet" href="lib/bootstrap/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="static/css/styles.css">
     <title>Virtual Labs Dashboard</title>
   </head>
-
+  
   <body>
     <div class="container">
       <h1 id="header">Virtual Labs Dashboard</h1>
-
+      
       <div id="user-control" class="row">
         <div class="col-md-3">
           <select id="category" class="form-control">
@@ -29,20 +29,20 @@
           </select>
         </div>
       </div>
-
+      
       <div id="result-set"></div>
-
+      
     </div>
-
-  <!-- Scripts -->
-  <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
-  <script type="text/javascript" src="lib/underscore-min.js"></script>
- 	 <script type="text/javascript" src="lib/backbone-min.js"></script>
-  <!--script
-    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script-->
-  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="static/js/main.js"></script>
-  <!-- templates -->
+    
+    <!-- Scripts -->
+    <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/backbone-min.js"></script>
+    <!--script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script-->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="static/js/main.js"></script>
+    <!-- templates -->
   <script type="text/template" id="labs-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -58,7 +58,7 @@
     </div>
     <div id="lab-list"></div>
   </script>
-
+  
   <script type="text/template" id="lab-list-template">
     <div class="row list" data-lab="<%= id %>">
       <div class="col-md-3"> <%= name %> </div>
@@ -66,15 +66,15 @@
       <div class="col-md-2"> <%= institute.name %> </div>
       <div class="col-md-2">
         <% if(is_hosted) { %>
-          Yes
+        Yes
         <% } else { %>
-          No
+        No
         <% } %>
       </div>
       <div class="col-md-2"> <%= number_of_experiments %> </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="lab-detailed-template">
     <div class="detail-view">
       <div class="details">
@@ -144,7 +144,7 @@
           <div class="col-md-4">Developers </div>
           <div class="col-md-8">
             <% for(idx in developers) { %>
-              <div class=""> <%= developers[idx].name %> </div>
+            <div class=""> <%= developers[idx].name %> </div>
             <% } %>
           </div>
         </div>
@@ -152,7 +152,7 @@
           <div class="col-md-4">Technologies </div>
           <div class="col-md-8">
             <% for(idx in technologies) { %>
-              <div class=""> <%= technologies[idx].name %> </div>
+            <div class=""> <%= technologies[idx].name %> </div>
             <% } %>
           </div>
         </div>
@@ -162,9 +162,9 @@
       </div>
     </div>
   </script>
-
-
-
+  
+  
+  
   <script type="text/template" id="lab-update-template">
     <div class="update-view">
       <div class="details">
@@ -191,10 +191,10 @@
           <div class="col-md-8">
             <select id="discipline-select" class="form-control">
               <% _.each(discs, function(disc) { %>
-                <option value="<%= disc.id %>"
-                  <% if(lab.discipline.name == disc.name) { %> selected <% } %>>
-                  <%= disc.name %>
-                </option>
+              <option value="<%= disc.id %>"
+                      <% if(lab.discipline.name == disc.name) { %> selected <% } %>>
+                <%= disc.name %>
+              </option>
               <% }); %>
             </select>
           </div>
@@ -204,10 +204,10 @@
           <div class="col-md-8">
             <select id="institute-select" class="form-control">
               <% _.each(instts, function(instt) { %>
-                <option value="<%= instt.id %>"
-                  <% if(lab.institute.name == instt.name) { %> selected <% } %>>
-                  <%= instt.name %>
-                </option>
+              <option value="<%= instt.id %>"
+                      <% if(lab.institute.name == instt.name) { %> selected <% } %>>
+                <%= instt.name %>
+              </option>
               <% }); %>
             </select>
           </div>
@@ -217,11 +217,11 @@
           <div class="col-md-8">
             <select id="project-phase-select" class="form-control">
               <% if(lab.is_phase_2_lab) { %>
-                <option value="false">Phase I </option>
-                <option value="true" selected>Phase II </option>
+              <option value="false">Phase I </option>
+              <option value="true" selected>Phase II </option>
               <% } else { %>
-                <option value="false" selected>Phase I </option>
-                <option value="true">Phase II </option>
+              <option value="false" selected>Phase I </option>
+              <option value="true">Phase II </option>
               <% } %>
             </select>
           </div>
@@ -239,11 +239,11 @@
           <div class="col-md-8">
             <select id="is-src-avail-select" class="form-control">
               <% if(lab.is_src_avail) { %>
-                <option value="true" selected> Yes </option>
-                <option value="false"> No </option>
+              <option value="true" selected> Yes </option>
+              <option value="false"> No </option>
               <% } else { %>
-                <option value="true"> Yes </option>
-                <option value="false" selected> No </option>
+              <option value="true"> Yes </option>
+              <option value="false" selected> No </option>
               <% } %>
             </select>
           </div>
@@ -259,11 +259,11 @@
           <div class="col-md-8">
             <select id="is-hosted-select" class="form-control">
               <% if(lab.is_hosted) { %>
-                <option value="true" selected> Yes </option>
-                <option value="false"> No </option>
+              <option value="true" selected> Yes </option>
+              <option value="false"> No </option>
               <% } else { %>
-                <option value="true"> Yes </option>
-                <option value="false" selected> No </option>
+              <option value="true"> Yes </option>
+              <option value="false" selected> No </option>
               <% } %>
             </select>
           </div>
@@ -288,7 +288,7 @@
           <div class="col-md-4">Developers </div>
           <div class="col-md-8">
             <% for(idx in lab.developers) { %>
-              <div class=""> <%= lab.developers[idx].name %> </div>
+            <div class=""> <%= lab.developers[idx].name %> </div>
             <% } %>
           </div>
         </div>
@@ -296,12 +296,12 @@
           <div class="col-md-4">Technologies </div>
           <div class="col-md-8">
             <% for(idx in lab.technologies) { %>
-              <div class="tag-wrapper">
-                <span class="tag">
-                  <%= lab.technologies[idx].name %>
-                      <a class="remove" href="#">&times;</a>
-                </span>
-              </div>
+            <div class="tag-wrapper">
+              <span class="tag">
+                <%= lab.technologies[idx].name %>
+                <a class="remove" href="#">&times;</a>
+              </span>
+            </div>
             <% } %>
             <div>
               <select id="lab-tech-select">
@@ -323,7 +323,7 @@
       </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="tag-template">
     <div class="tag-wrapper">
       <span class="tag">
@@ -332,7 +332,7 @@
       </span>
     </div>
   </script>
-
+  
   <script type="text/template" id="expts-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -347,7 +347,7 @@
     </div>
     <div id="expt-list"></div>
   </script>
-
+  
   <script type="text/template" id="expt-list-template">
     <div class="row list" data-expt="<%= id %>">
       <div class="col-md-3"> <%= name %> </div>
@@ -356,7 +356,7 @@
       <div class="col-md-2">  null </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="institutes-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -370,21 +370,21 @@
     </div>
     <div id="inst-list"></div>
   </script>
-
+  
   <script type="text/template" id="institute-list-template">
     <div class="row list" data-inst="<%= id %>">
       <div class="col-md-3"> <%= name %> </div>
       <div class="col-md-3"> <%= PIC %> </div>
       <div class="col-md-2">
 	<% if(IIC) { %>
-          <%= IIC %>
+        <%= IIC %>
         <% } else { %>
-          Unknown
+        Unknown
         <% } %>
       </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="inst-detailed-template">
     <div class="detail-view">
       <div class="details">
@@ -406,28 +406,28 @@
       </div>
     </div>	
   </script>
-
+  
   <script type="text/template" id="inst-update-template">
     <div class="update-view">
       <div class="details">
         <div class="row detail">
           <div class="col-md-4"> Name </div>
           <div class="col-md-8">
-			<input type="text" value="<%= institute.name %>" class="form-control"> 
+	    <input type="text" value="<%= institute.name %>" class="form-control"> 
           </div>
         </div>
         <div class="row detail">
           <div class="col-md-4"> PIC </div>
           <div class="col-md-8">
-      		<input type="text" value="<%= institute.PIC %>" class="form-control"> 
+      	    <input type="text" value="<%= institute.PIC %>" class="form-control"> 
           </div>
         </div>
         <div class="row detail">
           <div class="col-md-4"> IIC </div>
           <div class="col-md-8">
-      		<input type="text" value="<%= institute.IIC %>" class="form-control"> 
+      	    <input type="text" value="<%= institute.IIC %>" class="form-control"> 
           </div>
-
+          
         </div>
         <div class="update-button-alignment">
           <button class="btn btn-default" id="cancel-btn">Cancel</button>
@@ -436,7 +436,7 @@
       </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="disciplines-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -449,20 +449,20 @@
     </div>
     <div id="disc-list"></div>
   </script>
-
+  
   <script type="text/template" id="discipline-list-template">
     <div class="row list" data-disc="<%= id %>">
       <div class="col-md-6"> <%= name %> </div>
       <div class="col-md-6">
 	<% if(dnc) { %>
-          <%- dnc %>
+        <%- dnc %>
         <% } else { %>
-          Unknown
+        Unknown
         <% } %>
       </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="developers-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -476,7 +476,7 @@
     </div>
     <div id="dev-list"></div>
   </script>
-
+  
   <script type="text/template" id="developer-list-template">
     <div class="row list" data-dev="<%= id %>">
       <div class="col-md-3"> <%= institute.name %> </div>
@@ -484,8 +484,8 @@
       <div class="col-md-2"> <%= email_id %> </div>
     </div>
   </script>
-
-    <script type="text/template" id="developers-detailed-template">
+  
+  <script type="text/template" id="developers-detailed-template">
     <div class="detail-view">
       <div class="details">
         <div class="row detail">
@@ -506,8 +506,8 @@
       </div>
     </div>	
   </script>
-
-   <script type="text/template" id="developer-update-template">
+  
+  <script type="text/template" id="developer-update-template">
     <div class="update-view">
       <div class="details">
         <div class="row detail">
@@ -515,10 +515,10 @@
           <div class="col-md-8">
             <select id="institute-select" class="form-control">
               <% _.each(instts, function(instt) { %>
-                <option value="<%= instt.id %>"
-                  <% if(developer.institute.name == instt.name) { %> selected <% } %>>
-                  <%= instt.name %>
-                </option>
+              <option value="<%= instt.id %>"
+                      <% if(developer.institute.name == instt.name) { %> selected <% } %>>
+                <%= instt.name %>
+              </option>
               <% }); %>
             </select>
           </div>
@@ -526,15 +526,15 @@
         <div class="row detail">
           <div class="col-md-4"> Developer Name </div>
           <div class="col-md-8">
-      		<input type="text" value="<%= developer.name %>" class="form-control"> 
+      	    <input type="text" value="<%= developer.name %>" class="form-control"> 
           </div>
         </div>
         <div class="row detail">
           <div class="col-md-4"> Email Id </div>
           <div class="col-md-8">
-      		<input type="text" value="<%= developer.email_id %>" class="form-control"> 
+      	    <input type="text" value="<%= developer.email_id %>" class="form-control"> 
           </div>
-
+          
         </div>
         <div class="update-button-alignment">
           <button class="btn btn-default" id="cancel-btn">Cancel</button>
@@ -543,7 +543,7 @@
       </div>
     </div>
   </script>
-
+  
   <script type="text/template" id="technologies-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -553,51 +553,29 @@
 	<div class="col-md-3"> Name </div>
         <div class="col-md-3"> FOSS </div>
         <div class="col-md-3"> Version </div>
-     </div>
+      </div>
     </div>
     <div id="tech-list"></div>
   </script>
-
+  
   <script type="text/template" id="technology-list-template">
     <div class="row list" data-tech="<%= id %>">
       <div class="col-md-3"> <%= name %> </div>
       <div class="col-md-3">
 	<% if(foss) { %>
-          Yes
-        <% } else { %>
-          No
-        <% } %>
-      </div>
-      <div class="col-md-3">
-        <% if(version) { %>
-          <%= version %>
-        <% } else { %>
-          null
-        <% } %>
-      </div>
-    </div>
-  </script>
-
-
-  <script type="text/template" id="technology-list-template">
-    <div class="row list" data-tech="<%= id %>">
-      <div class="col-md-3"> <%= Temperature %> </div>
-      <div class="col-md-3">
-	<% if(celsius) { %>
         Yes
         <% } else { %>
         No
         <% } %>
       </div>
       <div class="col-md-3">
-        <% if(rain) { %>
-        <%= meteriology %>
+        <% if(version) { %>
+        <%= version %>
         <% } else { %>
         null
         <% } %>
       </div>
     </div>
   </script>
-  
   </body>
 </html>
