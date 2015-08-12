@@ -356,7 +356,45 @@
       <div class="col-md-2">  null </div>
     </div>
   </script>
-  
+
+  <script type="text/template" id="expt-detailed-template">
+    <div class="detail-view">
+      <div class="details">
+        <div class="row detail">
+          <div class="col-md-4"> Name </div>
+          <div class="col-md-8"><%= name %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Lab </div>
+          <div class="col-md-8"><%= lab.name %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Content On </div>
+          <div class="col-md-8"><%=  %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Content URL </div>
+          <div class="col-md-8"> <%= content_url  %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Simulation On </div>
+          <div class="col-md-8"> <%=  %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Simulation URL </div>
+          <div class="col-md-8"><%= simulation_url %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Technologies </div>
+          <div class="col-md-8"> <%=  %></div>
+        </div>       
+        <div class="update-button-alignment">
+          <button class="btn btn-default" id="update-btn">Update</button>
+        </div>
+      </div>
+    </div>
+  </script>
+
   <script type="text/template" id="institutes-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
