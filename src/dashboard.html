@@ -369,6 +369,65 @@
       </div>
     </script>
     
+    <script type="text/template" id="expt-update-template">
+      <div class="detail-view">
+	<div class="details">
+          <div class="row detail">
+            <div class="col-md-4"> Name </div>
+            <div class="col-md-8"><%= exp.name %></div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Lab </div>
+            <div class="col-md-8"><%= exp.lab.name %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Content On </div>
+            <div class="col-md-8">
+	      <select id="content-select" class="form-control">
+                <% _.each(host, function(host) { %>
+                <option value="<%= host.id %>">
+                  <%= host.name %>
+                </option>
+                <% }); %>
+              </select>
+	    </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Content URL </div>
+	    <div class="col-md-8">
+	      <input type="text" id="content-hosted" value="<%= exp.content_url %>" class="form-control">
+            </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Simulation On </div>
+            <div class="col-md-8">
+	      <select id="simulation-select" class="form-control">
+                <% _.each(host, function(host) { %>
+                <option value="<%= host.id %>">
+                  <%= host.name %>
+                </option>
+                <% }); %>
+              </select>
+	    </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Simulation URL </div>
+            <div class="col-md-8">
+	      <input type="text" id="simulation-hosted" value="<%= exp.simulation_url %>" class="form-control">
+            </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Technologies </div>
+            <div class="col-md-8"> Unknown </div>
+          </div>
+	  <div class="update-button-alignment">
+            <button class="btn btn-default" id="cancel-btn">Cancel</button>
+            <button class="btn btn-primary" id="save-btn">Save</button>
+          </div>
+	</div>
+      </div>
+    </script>
+    
  
     <script type="text/template" id="tag-template">
       <div class="tag-wrapper">

@@ -13,6 +13,7 @@ var AppView = Backbone.View.extend({
     this.on('update-view', this.show_update_view);
     this.on('expts-of-lab-view', this.show_exp_of_lab_view);
     this.on('detail-view-of-expt', this.show_exp_detail_view);
+    this.on('expt-update-view', this.show_exp_update_view);
     this.fetched_collections = {};
   },
   onSelect: function(e) {
@@ -116,7 +117,7 @@ var AppView = Backbone.View.extend({
     this.current_view.render();
     
   },
-  show_exp_detail_view: function(id){
+  show_exp_detail_view: function(id) {
     console.log("exp-detail-collection....", this.collection);    
     console.log("show_exp_detail_view....", id);    
     var model = this.collection.find({id: parseInt(id)});
@@ -129,6 +130,22 @@ var AppView = Backbone.View.extend({
       this.current_view.remove();
     }
     this.current_view = new ExperimentDetailView({
+      model: model
+    });
+    this.current_view.render();
+  },
+  show_exp_update_view: function(id) {
+    console.log("show_exp_detail_view....", id);    
+    var model = this.collection.find({id: parseInt(id)});
+    console.log("model is", model);  
+      if(!model) {
+      console.log('no model found!', model);
+      return;
+    }
+    if(this.current_view) {
+      this.current_view.remove();
+    }
+    this.current_view = new ExperimentUpdateView({
       model: model
     });
     this.current_view.render();
@@ -182,6 +199,22 @@ var AppView = Backbone.View.extend({
       {
         "id": 12,
         "name": "NIT-K"
+      }
+    ]
+  },
+  get_hosted_on: function() {
+    return [
+      {
+        "id": 1,
+        "name": "CPE"
+      },
+      {
+        "id": 2,
+        "name": "ELSE"
+      },
+      {
+        "id": 3,
+        "name": "NA"
       }
     ]
   },
@@ -432,7 +465,7 @@ var ExperimentsOfLabListView = Backbone.View.extend({
 
 var ExperimentDetailView = Backbone.View.extend({
   events: {
-    'click #update-btn': 'show_update_view'
+    'click #update-btn': 'expt_update_view'
   },
   initialize: function () {
     console.log('ExperimentDetailView initialized');
@@ -445,9 +478,29 @@ var ExperimentDetailView = Backbone.View.extend({
     console.log(this.model, this.model.toJSON);
     this.$el.html(this.template(this.model.toJSON()));
   },
-  show_update_view: function() {
-    console.log('inside show update ');
-    VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
+  expt_update_view: function() {
+    console.log('expt_update_view  ');
+    VLD.app_view.trigger('expt-update-view', this.model.get('id'))
+  }
+});
+
+var ExperimentUpdateView = Backbone.View.extend({
+   events: {
+    'click #cancel-btn': 'cancel_update',
+    'click #save-btn': 'save',
+    'click #add-tech': 'add_technology'
+   },
+    initialize: function () {
+    console.log('LabDetailView initialized');
+    //console.log(this);
+    this.template = _.template($('#expt-update-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering..');
+    this.hosted_on = VLD.app_view.get_hosted_on();
+    console.log(this.content_on);
+      this.$el.html(this.template({exp:this.model.toJSON(), host:this.hosted_on}));
   }
 });
 
