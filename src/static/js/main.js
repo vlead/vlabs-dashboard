@@ -121,7 +121,7 @@ var AppView = Backbone.View.extend({
     console.log("show_exp_detail_view....", id);    
     var model = this.collection.find({id: parseInt(id)});
     console.log("model is", model);  
-    if(!model) {
+      if(!model) {
       console.log('no model found!', model);
       return;
     }
@@ -436,17 +436,18 @@ var ExperimentDetailView = Backbone.View.extend({
   },
   initialize: function () {
     console.log('ExperimentDetailView initialized');
+    console.log(this.model.toJSON());
     this.template = _.template($('#expt-detailed-template').html());
     $('#result-set').append(this.$el);
   },
   render: function() {
     console.log('rendering experiments detailed view');
-    //console.log(this.model, this.model.toJSON);
+    console.log(this.model, this.model.toJSON);
     this.$el.html(this.template(this.model.toJSON()));
   },
   show_update_view: function() {
     console.log('inside show update ');
-      //VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
+    VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
   }
 });
 
