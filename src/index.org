@@ -99,7 +99,23 @@
     solution (essentially a program) that can generate basic HTML
     template from the ER diagram itself.
   
+ + Following points were discussed in the meeting held on 2015-08-07:
+  - A data model should be published that explains about actual data
+    and how it is organized.
 
+ - Integrity constraints should also be mentioned. (ex. same lab can't
+   be from different institutes.)
+
+ - Add Mnemonic as a column in lab.
+
+ - Model for all the four layers should be documented.
+
+ - Values of Ids of institutes and disciplines should be mentioned in
+   the model.
+
+ - How REST API is mapped to Python API should also be documented.
+
+ - Batch update operation should also be provided in the dashboard.    
 * Releases
 ** Backlog
    1. There are 19 screens to be built. 
