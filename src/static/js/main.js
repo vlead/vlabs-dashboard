@@ -511,6 +511,7 @@ var InstituteDetailView = Backbone.View.extend({
   }
 });
 
+
 var InstUpdateView = Backbone.View.extend({
   events: {
     'click #cancel-btn': 'cancel_update',
@@ -805,6 +806,8 @@ var TechnologyDetailView = Backbone.View.extend({
   }
 });
 
+//TODO: Need to work on Update view as it is throwing some 
+//error while updating technologies.
 var TechnologyUpdateView = Backbone.View.extend({
   events: {
     'click #cancel-btn': 'cancel_update',
