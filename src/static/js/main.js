@@ -564,6 +564,7 @@ var InstituteDetailView = Backbone.View.extend({
   }
 });
 
+
 var InstUpdateView = Backbone.View.extend({
   events: {
     'click #cancel-btn': 'cancel_update',
@@ -646,6 +647,78 @@ var DisciplinesListView = Backbone.View.extend({
     VLD.app_view.trigger('detail-view', 'discipline', disc_id);
   }
 });
+
+var DisciplineDetailView = Backbone.View.extend({
+  events: {
+    'click #update-btn': 'show_update_view',
+    'click #exp-link': 'viewExptsOfLab'
+  },
+  initialize: function () {
+    console.log('DisciplineDetailView initialized');
+    console.log(this);
+    this.template = _.template($('#discipline-detailed-template').html());
+
+    $('#result-set').append(this.$el);
+
+  },
+  render: function() {
+    console.log('rendering..');
+    console.log(this.model.toJSON);
+    console.log(this.model)
+    console.log("model was ^    ")
+    this.$el.html(this.template(this.model.toJSON()));
+  },
+  show_update_view: function() {
+    VLD.app_view.trigger('update-view', 'discipline', this.model.get('id'))
+  }
+});
+
+var DisciplineUpdateView = Backbone.View.extend({
+  events: {
+    'click #cancel-btn': 'cancel_update',
+    'click #save-btn': 'save'
+  },
+  initialize: function() {
+    console.log("initialized");
+    this.template = _.template($('#discipline-update-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering update view');
+    //var instts = VLD.app_view.get_institutes();
+    this.$el.html(this.template({
+      // instts: instts,
+      discipline: this.model.toJSON()
+    }));
+  },
+  cancel_update: function() {
+    VLD.app_view.trigger('detail-view', 'discipline', this.model.get('id'));
+  }, 
+
+  save: function() {
+    var self = this;
+    var attrs = this.get_attrs_from_form();
+    this.model.set(attrs);
+    this.model.save({}, {
+      success: function() {
+        //console.log('save success');
+        VLD.app_view.trigger('detail-view', 'discipline', self.model.get('id'));
+      },
+      error: function() {
+        alert('Error saving lab details. Please try again');
+      }
+    });
+  },
+
+  get_attrs_from_form: function() {
+    return {
+      name: $('#discipline-name').val(),
+      dnc: $ ('#discipline-dnc').val(),
+    };
+  }  
+});
+
+
 
 var Developer = Backbone.Model.extend({});
 
@@ -761,6 +834,78 @@ var TechnologiesListView = Backbone.View.extend({
   }
 });
 
+var TechnologyDetailView = Backbone.View.extend({
+  events: {
+    'click #update-btn': 'show_update_view',
+    'click #exp-link': 'viewExptsOfLab'
+  },
+  initialize: function () {
+    console.log('TechnologyDetailView initialized');
+    console.log(this);
+    this.template = _.template($('#technology-detailed-template').html());
+
+    $('#result-set').append(this.$el);
+
+  },
+  render: function() {
+    console.log('rendering..');
+    console.log(this.model.toJSON);
+    console.log(this.model)
+    console.log("model was ^    ")
+    this.$el.html(this.template(this.model.toJSON()));
+  },
+  show_update_view: function() {
+    VLD.app_view.trigger('update-view', 'technology', this.model.get('id'))
+  }
+});
+
+var TechnologyUpdateView = Backbone.View.extend({
+  events: {
+    'click #cancel-btn': 'cancel_update',
+    'click #save-btn': 'save'
+  },
+  initialize: function() {
+    console.log("initialized");
+    this.template = _.template($('#technology-update-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering update view');
+    //var instts = VLD.app_view.get_institutes();
+    this.$el.html(this.template({
+      // instts: instts,
+      technology: this.model.toJSON()
+    }));
+  },
+  cancel_update: function() {
+    VLD.app_view.trigger('detail-view', 'technology', this.model.get('id'));
+  }, 
+
+  save: function() {
+    var self = this;
+    var attrs = this.get_attrs_from_form();
+    this.model.set(attrs);
+    this.model.save({}, {
+      success: function() {
+        //console.log('save success');
+        VLD.app_view.trigger('detail-view', 'technology', self.model.get('id'));
+      },
+      error: function() {
+        alert('Error saving lab details. Please try again');
+      }
+    });
+  },
+
+  get_attrs_from_form: function() {
+    return {
+      name: $('#technology-name').val(),
+      foss: $ ('#foss-select').val(),
+      version: $ ('#technology-version').val()
+    };
+  }  
+});
+
+
 var collections = {
   lab: Labs,
   developer: Developers,
@@ -780,13 +925,17 @@ var models = {
 var detail_views = {
   lab: LabDetailView,
   institute: InstituteDetailView,
-  developer: DeveloperDetailView
+  developer: DeveloperDetailView,
+  discipline: DisciplineDetailView,
+  technology: TechnologyDetailView
 };
 
 var update_views = {
   lab: LabUpdateView,
   developer: DeveloperUpdateView,
-  institute: InstUpdateView
+  institute: InstUpdateView,
+  discipline: DisciplineUpdateView,
+  technology: TechnologyUpdateView
 };
 
 var list_views = {
