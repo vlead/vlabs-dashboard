@@ -37,7 +37,7 @@
   <!-- Scripts -->
   <script type="text/javascript" src="lib/jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="lib/underscore-min.js"></script>
-  <script type="text/javascript" src="lib/backbone-min.js"></script>
+ 	 <script type="text/javascript" src="lib/backbone-min.js"></script>
   <!--script
     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script-->
   <script src="lib/bootstrap/js/bootstrap.min.js"></script>
@@ -163,27 +163,7 @@
     </div>
   </script>
 
-  <script type="text/template" id="inst-detailed-template">
-    <div class="detail-view">
-      <div class="details">
-        <div class="row detail">
-          <div class="col-md-4">Name </div>
-          <div class="col-md-8"> <%= name %> </div>
-        </div>
-        <div class="row detail">
-          <div class="col-md-4">PIC </div>
-          <div class="col-md-8"> <%= PIC %> </div>
-        </div>
-        <div class="row detail">
-          <div class="col-md-4">IIC</div>
-          <div class="col-md-8"> <%= IIC %> </div>
-        </div> 
-        <div class="update-button-alignment">
-          <button class="btn btn-default" id="update-btn">Update</button>
-        </div>
-      </div>
-    </div>	
-  </script>
+
 
   <script type="text/template" id="lab-update-template">
     <div class="update-view">
@@ -405,6 +385,58 @@
     </div>
   </script>
 
+  <script type="text/template" id="inst-detailed-template">
+    <div class="detail-view">
+      <div class="details">
+        <div class="row detail">
+          <div class="col-md-4">Name </div>
+          <div class="col-md-8"> <%= name %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4">PIC </div>
+          <div class="col-md-8"> <%= PIC %> </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4">IIC</div>
+          <div class="col-md-8"> <%= IIC %> </div>
+        </div> 
+        <div class="update-button-alignment">
+          <button class="btn btn-default" id="update-btn">Update</button>
+        </div>
+      </div>
+    </div>	
+  </script>
+
+  <script type="text/template" id="inst-update-template">
+    <div class="update-view">
+      <div class="details">
+        <div class="row detail">
+          <div class="col-md-4"> Name </div>
+          <div class="col-md-8">
+			<input type="text" value="<%= institute.name %>" class="form-control"> 
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> PIC </div>
+          <div class="col-md-8">
+      		<input type="text" value="<%= institute.PIC %>" class="form-control"> 
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> IIC </div>
+          <div class="col-md-8">
+      		<input type="text" value="<%= institute.IIC %>" class="form-control"> 
+          </div>
+
+        </div>
+        <div class="update-button-alignment">
+          <button class="btn btn-default" id="cancel-btn">Cancel</button>
+          <button class="btn btn-primary" id="save-btn">Save</button>
+        </div>
+      </div>
+    </div>
+  </script>
+
   <script type="text/template" id="disciplines-list-view-wrapper-template">
     <div class="list-header">
       <div class="row list-info">
@@ -473,6 +505,43 @@
         </div>
       </div>
     </div>	
+  </script>
+
+   <script type="text/template" id="developer-update-template">
+    <div class="update-view">
+      <div class="details">
+        <div class="row detail">
+          <div class="col-md-4"> Intitute Name </div>
+          <div class="col-md-8">
+            <select id="institute-select" class="form-control">
+              <% _.each(instts, function(instt) { %>
+                <option value="<%= instt.id %>"
+                  <% if(developer.institute.name == instt.name) { %> selected <% } %>>
+                  <%= instt.name %>
+                </option>
+              <% }); %>
+            </select>
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Developer Name </div>
+          <div class="col-md-8">
+      		<input type="text" value="<%= developer.name %>" class="form-control"> 
+          </div>
+        </div>
+        <div class="row detail">
+          <div class="col-md-4"> Email Id </div>
+          <div class="col-md-8">
+      		<input type="text" value="<%= developer.email_id %>" class="form-control"> 
+          </div>
+
+        </div>
+        <div class="update-button-alignment">
+          <button class="btn btn-default" id="cancel-btn">Cancel</button>
+          <button class="btn btn-primary" id="save-btn">Save</button>
+        </div>
+      </div>
+    </div>
   </script>
 
   <script type="text/template" id="technologies-list-view-wrapper-template">

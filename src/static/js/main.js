@@ -92,6 +92,7 @@ var AppView = Backbone.View.extend({
     if(!_.has(update_views, type)) {
       return;
     }
+
     //TODO: maybe a later optimization could be to not destroy the views, but
     //to switch among views..
     if(this.current_view) {
@@ -459,12 +460,39 @@ var InstituteDetailView = Backbone.View.extend({
     console.log('rendering..');
     console.log(this.model.toJSON);
     console.log(this.model)
+    console.log("model was ^    ")
     this.$el.html(this.template(this.model.toJSON()));
   },
   show_update_view: function() {
     VLD.app_view.trigger('update-view', 'institute', this.model.get('id'))
   }
 });
+
+var InstUpdateView = Backbone.View.extend({
+  events: {
+    'click #cancel-btn': 'cancel_update'
+
+  },
+  initialize: function() {
+    console.log("initialized");
+    this.template = _.template($('#inst-update-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering update view');
+    var instts = VLD.app_view.get_institutes();
+    this.$el.html(this.template({
+      // instts: instts,
+      institute: this.model.toJSON()
+    }));
+  },
+  cancel_update: function() {
+    VLD.app_view.trigger('detail-view', 'institute', this.model.get('id'));
+  }
+
+});
+
+
 
 var Discipline = Backbone.Model.extend({});
 
@@ -557,6 +585,29 @@ var DeveloperDetailView = Backbone.View.extend({
   }
 });
 
+var DeveloperUpdateView = Backbone.View.extend({
+  events: {
+    'click #cancel-btn': 'cancel_update'
+
+  },
+  initialize: function() {
+    this.template = _.template($('#developer-update-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering update view');
+    var instts = VLD.app_view.get_institutes();
+    this.$el.html(this.template({
+      instts: instts,
+      developer: this.model.toJSON()
+    }));
+  },
+  cancel_update: function() {
+    VLD.app_view.trigger('detail-view', 'developer', this.model.get('id'));
+  }
+
+});
+
 var Technology = Backbone.Model.extend({});
 
 var Technologies = Backbone.Collection.extend({
@@ -616,7 +667,8 @@ var detail_views = {
 
 var update_views = {
   lab: LabUpdateView,
-  //developer: DeveloperUpdateView
+  developer: DeveloperUpdateView,
+  institute: InstUpdateView
 };
 
 var list_views = {
@@ -626,6 +678,7 @@ var list_views = {
   institute: InstitutesListView,
   technology: TechnologiesListView
 };
+
 
 function init() {
   $.ajaxSetup({crossDomain: true});
