@@ -321,13 +321,61 @@
         </div>
       </div>
     </script>
+  
+    <script type="text/template" id="expt-list-template">
+      <div class="row list" data-expt="<%= id %>">
+	<div class="col-md-3"> <%= name %> </div>
+	<div class="col-md-3"> <%= content_url %> </div>
+	<div class="col-md-3"> <%= simulation_url %> </div>
+	<div class="col-md-2">  null </div>
+      </div>
+    </script>
 
+    <script type="text/template" id="expt-detailed-template">
+      <div class="detail-view">
+	<div class="details">
+          <div class="row detail">
+            <div class="col-md-4"> Name </div>
+            <div class="col-md-8"><%= name %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Lab </div>
+            <div class="col-md-8"><%= lab.name %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Content On </div>
+            <div class="col-md-8"> Unknown </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Content URL </div>
+            <div class="col-md-8"> <%= content_url  %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Simulation On </div>
+            <div class="col-md-8"> Unknown </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Simulation URL </div>
+            <div class="col-md-8"><%= simulation_url %> </div>
+          </div>
+          <div class="row detail">
+            <div class="col-md-4"> Technologies </div>
+            <div class="col-md-8"> Unknown </div>
+          </div>       
+          <div class="update-button-alignment">
+            <button class="btn btn-default" id="update-btn">Update</button>
+          </div>
+	</div>
+      </div>
+    </script>
+    
+ 
     <script type="text/template" id="tag-template">
       <div class="tag-wrapper">
-        <span class="tag">
+	<span class="tag">
           <%= name %>
           <a class="remove" href="#">&times;</a>
-        </span>
+	</span>
       </div>
     </script>
 

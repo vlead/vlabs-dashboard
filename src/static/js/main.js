@@ -12,6 +12,7 @@ var AppView = Backbone.View.extend({
     this.on('detail-view', this.show_detail_view);
     this.on('update-view', this.show_update_view);
     this.on('expts-of-lab-view', this.show_exp_of_lab_view);
+    this.on('detail-view-of-expt', this.show_exp_detail_view);
     this.fetched_collections = {};
   },
   onSelect: function(e) {
@@ -108,13 +109,30 @@ var AppView = Backbone.View.extend({
     if(this.current_view) {
       this.current_view.remove();
     }
+    this.collection = collection ;
     this.current_view = new ExperimentsOfLabListView({
       collection: collection
     });
     this.current_view.render();
     
   },
-    
+  show_exp_detail_view: function(id){
+    console.log("exp-detail-collection....", this.collection);    
+    console.log("show_exp_detail_view....", id);    
+    var model = this.collection.find({id: parseInt(id)});
+    console.log("model is", model);  
+      if(!model) {
+      console.log('no model found!', model);
+      return;
+    }
+    if(this.current_view) {
+      this.current_view.remove();
+    }
+    this.current_view = new ExperimentDetailView({
+      model: model
+    });
+    this.current_view.render();
+  },
   get_institutes: function() {
     return [
       {
@@ -377,7 +395,6 @@ var LabUpdateView = Backbone.View.extend({
   }
 });
 
-// Experiments List View
 var Experiment = Backbone.Model.extend({});
 var Experiments = Backbone.Collection.extend({
   model: Experiment,
@@ -387,9 +404,10 @@ var Experiments = Backbone.Collection.extend({
 });
 
 // List View Of Experiments Of a Lab
-
 var ExperimentsOfLabListView = Backbone.View.extend({
-    
+  events: {
+    'click .list': 'showExptDetail'
+  },
   initialize: function() {
     this.wrapper_template =
       _.template($('#expts-list-view-wrapper-template').html());
@@ -404,8 +422,33 @@ var ExperimentsOfLabListView = Backbone.View.extend({
     this.collection.each(function(discipline) {
       this.$expt_el.append(this.template(discipline.toJSON()));
     }, this);
+  },
+  showExptDetail: function(event) {
+    var expt_id = $(event.currentTarget).attr('data-expt');
+    console.log('clicked', expt_id);
+    VLD.app_view.trigger('detail-view-of-expt', expt_id);
+  }  
+});
+
+var ExperimentDetailView = Backbone.View.extend({
+  events: {
+    'click #update-btn': 'show_update_view'
+  },
+  initialize: function () {
+    console.log('ExperimentDetailView initialized');
+    console.log(this.model.toJSON());
+    this.template = _.template($('#expt-detailed-template').html());
+    $('#result-set').append(this.$el);
+  },
+  render: function() {
+    console.log('rendering experiments detailed view');
+    console.log(this.model, this.model.toJSON);
+    this.$el.html(this.template(this.model.toJSON()));
+  },
+  show_update_view: function() {
+    console.log('inside show update ');
+    VLD.app_view.trigger('update-view', 'lab', this.model.get('id'))
   }
-  
 });
 
 var Institute = Backbone.Model.extend({});
