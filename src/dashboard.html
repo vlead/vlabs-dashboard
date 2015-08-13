@@ -418,7 +418,16 @@
           </div>
           <div class="row detail">
             <div class="col-md-4"> Technologies </div>
-            <div class="col-md-8"> Unknown </div>
+            <div class="col-md-8">
+	      <select id="expt-tech-select">
+	        <option disabled="disabled" selected>Add technology</option>	            <option value="1">php5</option>
+		<option value="2">apache2</option>
+		<option value="3">java</option>
+		<option value="4">gcc</option>
+		<option value="5">ubuntu12</option>
+	      </select>
+	      <button id="add-tech" class="btn btn-sm btn-default">Add</button>
+	    </div>
           </div>
 	  <div class="update-button-alignment">
             <button class="btn btn-default" id="cancel-btn">Cancel</button>

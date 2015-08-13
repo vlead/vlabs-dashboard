@@ -485,12 +485,12 @@ var ExperimentDetailView = Backbone.View.extend({
 });
 
 var ExperimentUpdateView = Backbone.View.extend({
-   events: {
+  events: {
     'click #cancel-btn': 'cancel_update',
     'click #save-btn': 'save',
     'click #add-tech': 'add_technology'
-   },
-    initialize: function () {
+  },
+  initialize: function () {
     console.log('LabDetailView initialized');
     //console.log(this);
     this.template = _.template($('#expt-update-template').html());
@@ -501,6 +501,25 @@ var ExperimentUpdateView = Backbone.View.extend({
     this.hosted_on = VLD.app_view.get_hosted_on();
     console.log(this.content_on);
       this.$el.html(this.template({exp:this.model.toJSON(), host:this.hosted_on}));
+  },
+  add_technology: function() {
+    var tech = $('#expt-tech-select option:selected').val();
+  },
+  cancel_update: function() {
+      VLD.app_view.trigger('detail-view-of-expt', this.model.get('id'));
+  },
+  save: function() {
+    var self = this;
+    var attrs = this.get_attrs_from_form();
+    this.model.set(attrs);
+    this.model.save({}, {
+      success: function() {
+        VLD.app_view.trigger('detail-view-of-expt', expt_id);
+      },
+      error: function() {
+        alert('Error saving lab details. Please try again');
+      }
+    });
   }
 });
 
