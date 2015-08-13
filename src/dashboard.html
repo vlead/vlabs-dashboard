@@ -385,7 +385,7 @@
             <div class="col-md-8">
 	      <select id="content-select" class="form-control">
                 <% _.each(host, function(host) { %>
-                <option value="<%= host.id %>">
+                <option value="<%= host.id %>" selected>
                   <%= host.name %>
                 </option>
                 <% }); %>
@@ -403,7 +403,7 @@
             <div class="col-md-8">
 	      <select id="simulation-select" class="form-control">
                 <% _.each(host, function(host) { %>
-                <option value="<%= host.id %>">
+                <option value="<%= host.id %>" selected>
                   <%= host.name %>
                 </option>
                 <% }); %>

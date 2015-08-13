@@ -431,7 +431,7 @@ var LabUpdateView = Backbone.View.extend({
 var Experiment = Backbone.Model.extend({});
 var Experiments = Backbone.Collection.extend({
   model: Experiment,
-    initialize: function() {
+  initialize: function() {
     console.log("Experiments initialize");
   }
 });
@@ -499,8 +499,7 @@ var ExperimentUpdateView = Backbone.View.extend({
   render: function() {
     console.log('rendering..');
     this.hosted_on = VLD.app_view.get_hosted_on();
-    console.log(this.content_on);
-      this.$el.html(this.template({exp:this.model.toJSON(), host:this.hosted_on}));
+    this.$el.html(this.template({exp:this.model.toJSON(), host:this.hosted_on}));
   },
   add_technology: function() {
     var tech = $('#expt-tech-select option:selected').val();
@@ -511,16 +510,28 @@ var ExperimentUpdateView = Backbone.View.extend({
   save: function() {
     var self = this;
     var attrs = this.get_attrs_from_form();
+    var experiment = new Experiment();
+    experiment.url = VLD.DS_URL + '/experiments/' + this.model.get('id');
+    console.log(experiment.url);
+    console.log(attrs);
     this.model.set(attrs);
     this.model.save({}, {
-      success: function() {
-        VLD.app_view.trigger('detail-view-of-expt', expt_id);
+    success: function() {
+      console.log("success");
+	VLD.app_view.trigger('detail-view-of-expt', this.model.get('id'));
       },
       error: function() {
         alert('Error saving lab details. Please try again');
       }
     });
-  }
+  },
+  get_attrs_from_form: function() {
+    return {
+      content_url: $('#content-hosted').val(),
+      simulation_url: $ ('#simulation-hosted').val(),
+      id: this.model.get('id'),
+    };
+  }  
 });
 
 var Institute = Backbone.Model.extend({});
