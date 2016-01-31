@@ -1,0 +1,202 @@
+#+TITLE: Requirements for dashboard project
+#+DATE: <2016-01-31 Sun>
+#+AUTHOR: Saurabh Barjatiya
+#+EMAIL: saurabh@sbarjatiya.com
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil stat:t
+#+OPTIONS: tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+CREATOR: Emacs 24.4.1 (Org mode 8.2.10)
+#+DESCRIPTION:
+#+EXCLUDE_TAGS: noexport
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+
+* Data-model
+** Entities and Entity Sources
+   For a more detailed description of entities please refer to
+   appropriate sources from where they have been obtained.
+*** Users Entity 
+    - Source :: data-service
+*** Labs Entity
+    - Source :: data-service
+*** Developers Entity
+    - Source :: data-service
+*** Institutes Entity
+    - Source :: data-service
+*** Experiments Entity
+    - Source :: data-service
+*** Feed-back Entity
+    - Source :: TBD
+*** Analytics Entity
+    - Source :: analytics service
+** Assumptions
+   - Various assumptions that are made in 'Entity Sources' are passed
+     on to Dashboard.  Thus, if an entity source assumes that an
+     entity, eg feed-back, cannot be modified then dashboard will also
+     not be able to provide editing for corresponding field.
+* Roles (People involved)
+*** Deployment Engineer Role
+    - Will deploy dashboard on various environment including production.
+    - Will be responsible for backup / restore, if required.  Since
+      most data is stored by data-service or other such services, only
+      logs and short-term session information may need to be backed
+      up.
+*** Application Technical Administrator Role
+    - Will have full access to modify any entity in data-model as long
+      as corresponding 'Entity Source' allows such modification via a
+      published API.  This administrator can also modify lab-ID,
+      institute-ID, public IP of lab, lab FQDN, etc. 
+*** Application Non-Technical Administrator Role
+    - Will have maximum access to modify any entity in data-model as
+      long as 'entity source' allows such modification via a published
+      API.  Fields which are used for back-end functioning such as
+      various IDs lab-ID, institute-ID, deployment URL, public IP,
+      etc. will not be editable by this role.
+*** Institute Administrator Role
+    - Will have full rights to modify any information related to an
+      institute including all its labs.  Fields which are not editable
+      by [[Application Non-Technical Administrator Role]] will also not be
+      editable by Institute Administrator. 
+*** Discipline Administrator Role
+    - Will have full rights to modify information about labs belonging
+      to a particular discipline.  Fields which are not editable by
+      [[Application Non-Technical Administrator Role]] will also not be
+      editable by Discipline Administrator.
+*** Lab administrator Role
+    - Will have full rights to modify information about a particular
+      lab.  Same administrator could be incharge of multiple labs.
+      Fields which are not editable by [[Application Non-Technical
+      Administrator Role]] will also not be editable by Lab
+      administrator.
+    - In future it might be possible for lab administrator to use
+      dash-board for launching new version of thier lab via ADS.
+*** Guest Role
+    - Any un-authenicated user will be treated as Guest.  This can be
+      used for accessing login page to authenticate and get access to
+      other roles.
+* Users to role mapping
+  - VLEAD :: Deployment Engineer Role, Application Technical
+             Administrator Role
+  - NIC :: Application Non-Technical Administrator Role
+  - PI :: Application Non-Technical Administrator Role
+  - PIC :: Institute Administrator Role
+  - IIC :: Institute Administrator Role
+  - DNC :: Discipline Administrator Role
+  - Lab developer :: Lab Administrator Role
+  - Everyone :: Guest Role
+* Features 
+** Login Feature
+   - Role :: Guest role
+   - Result :: Following results after successful login
+     1. Creates session ID for all future actions and determines users
+        Role.  
+     2. For Institute Administrator Role, Discipline Administrator
+        Role and Lab Administrator Role it populates session
+        information with institute and labs that can be modified by
+        current user.
+     3. Creates a log of login activity
+   - Depends upon :: [[Users Entity]]
+   - Dependents :: All other features
+   - Assumption :: Any number of bad login attempts would be allowed.  
+** Logout Feature
+   - Role :: All authenticated roles (non-Guest)
+   - Result :: Destoys session ID and converts user to Guest Role 
+   - Depends upon :: [[Login Feature]], Session information
+   - Dependents :: None
+   - Assumption :: None
+** Get entity information
+   - Role :: All authenticated roles (non-Guest)
+   - Result :: Show information about entity on screen
+   - Depends upon :: [[Login Feature]], Session information, Corresponding
+                     entity and entity source
+   - Dependents :: None
+   - Assumptions :: Follows assumptions are made 
+     1. Only authorized users with given roles as per below matrix can
+        access the corresponding entity information
+        |-------------------------------+------------------------------------------|
+        | *Entity*                      | *Allowed Role*                           |
+        |-------------------------------+------------------------------------------|
+        | [[Users Entity]].{!password_hash} | [[Application Technical Administrator Role]] |
+        | [[Users Entity]].*                | Self user                                |
+        |-------------------------------+------------------------------------------|
+        | [[Institute Entity]].*            | All Roles                                |
+        |-------------------------------+------------------------------------------|
+        | [[Developers Entity]].*           | All Roles                                |
+        |-------------------------------+------------------------------------------|
+
+** Set/Create entity information
+   - Role :: All authenticated roles (non-Guest)
+   - Result :: Set information about entity as input by user
+   - Depends upon :: [[Login Feature]], Session information, Corresponding
+                     entity and entity source, Ability to edit
+                     corresponding field via REST through given entity
+                     source
+   - Dependents :: None
+   - Assumptions :: Follows assumptions are made 
+     1. Validation of whether a particular value is acceptable for
+        given entity should be performed bv corresponding
+        data-service.  Dashboard will not perform validation
+        internally.
+     2. Only authorized users with given roles as per below matrix can
+        access the corresponding entity information
+        |--------------------------------------------------+----------------------------------------------|
+        | *Entity*                                         | *Allowed Role*                               |
+        |--------------------------------------------------+----------------------------------------------|
+        | All entitites                                    | [[Application Technical Administrator Role]]     |
+        |--------------------------------------------------+----------------------------------------------|
+        | [[Users Entity]].{password_hash}                     | Self user                                    |
+        | [[Users_Entity]].{mobile_number}                     | Self user                                    |
+        | [[Users_Entity]].{!email,!password_hash}             | [[Application Non-Technical Administrator Role]] |
+        |--------------------------------------------------+----------------------------------------------|
+        | [[Institute Entity]].{!institute_id,!institute_code} | [[Application Non-Technical Administrator Role]] |
+        |                                                  | Corresponding [[Institute Administrator Role]]   |
+        |--------------------------------------------------+----------------------------------------------|
+        | [[Labs Entity]].{!lab_id,!lab_code,                  | [[Application Non-Technical Administrator Role]] |
+        | !public_ip,!hosted_url,!hosted_version,          | Corresponding [[Institute Administrator Role]]   |
+        | !deployment_engineer}                            | Corresponding [[Discipline Administrator Role]]  |
+        |                                                  | Corresponding [[Lab Administrator Role]]         |
+        |--------------------------------------------------+----------------------------------------------|
+** Re-deploy lab
+   - Role :: Corresponding [[Lab administrator Role]], Corresponding
+             [[Institute administratrator Role]], Corresponding
+             [[Discipline Administrator Role]], [[Application Technical
+             Administrator Role]], 
+   - Result :: Deploys lab on a new Virtual-Instance (VI) using ADS
+               (Auto-deployment service), ADS terminates old instance,
+               Hooks update various DNS, etc. configuration for lab to
+               become accessible publicly.
+   - Depends upon :: [[Login Feature]], Session information, ADS facility
+                     to re-deploy a lab using API
+   - Dependents :: None
+   - Assumptions :: Deployment failures, if any, would be handled by
+                    ADS service.  Dashboard will not check for
+                    deployment failures.
+* Workflow (Task/Action)
+** Login Workflow
+   1. Open http://dashboard.vlabs.ac.in/
+   2. Enter email ID in email address field
+   3. Enter password in password field.
+   4. Click login button or press return key.
+** Logout Workflow
+   1. Follow [[Login Workflow]]
+   2. Click on logout link on screen.
+** Change password
+   1. Follow [[Login Workflow]] 
+   2. Click on [[Change password]] link on screen.
+** TODO Get information about labs (List / Detailed)
+   - By institute
+   - By domain/discipline
+   - By developer
+   - Integration level
+   - Technologies used by a lab
+** TODO Update information about institute
+** TODO Search and/or Advanced Search
+   - By lab ID
+* TODO User Interaction Model 
+* TODO Wire-frames
+* TODO Release plan with versions
+* Queries
+  1. Is [[Discpline administrator]] role required?
+  2. Do we need *Register* feature? 
