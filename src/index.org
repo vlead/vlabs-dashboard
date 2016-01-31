@@ -3,157 +3,56 @@
 #+Date: [2015-07-09 Thu]
 #+PROPERTY: results output
 #+PROPERTY: exports code
-#+SETUPFILE: org-templates/level-0.org
 
 * Introduction
-  The dashboard should provide every related information of a lab that is
-  either hosted or is in the list for hosting.  
+  Dashboard is a web application which can be used for obtaining
+  information about Virtual-labs.  Dash-board will also provide
+  methods of updating information about labs (Lab name, developer,
+  institute, etc.) to appropriate entities.
+
 * Requirements
+  Requirements for dashboard are captured at [[./requirements.org]]
 
-  1. Ability to view virtual lab information - related to labs, institutes, disciplines,
-     technologies, developers and experiments.
-
-  2. Ability to run different queries on this virtual lab information.
-     + what are the hosted labs of an institute
-     + what are the labs from an institute that are at level 0?
-     + what are the technologies used by an experiment of a particular lab?
-
-  3. Hosting - whether a lab is hosted at IIIT or AWS, or Badal or at a
-     respective university
-
-  4. Provide an interface to update virtual lab information to keep it current
-     and relevant. Only authorized users will be able to update the information.
-     
-  5. To get and save data, at the back-end, it connects to the dataservice
-     (which is already part of the Central Platform services).
-
-  6. The underlying data store should be able to incorporate expanding data
-     information of a lab.
-
-  7. When a lab is deployed, the dashboard should reflect the updated
-     information.  This means integration with ADS.
-     
-  8. Compatibility of Technologies. 
-
-  9. Analytics for each lab
-
-* Design
-** Data Presentation
-*** Overview
-    #+CAPTION: Overview
-    #+Name: overview
-    [[./images/overview.jpg]]
-
-*** Query Driven
-**** List View
-     #+CAPTION: List View
-     #+Name: list
-
-     [[./images/list-view-of-labs.jpg]]
-
-**** Detailed VIew
-     #+CAPTION: Detailed View
-     #+Name: detail
-     
-     [[./images/detailed-view-of-a-particular-lab.jpg]]
-
-**** Update View
-     This is another view built upon the detailed view but with provisions to
-     edit the fields.
-*** Categories
-    1. Lab
-    2. Institute
-    3. Discipline
-    4. Technology
-    5. Experiment
-    6. Developers
-
-    #+CAPTION: Overview
-    #+Name: overview
-    [[./images/overview.jpg]]
-    
-** Data Retrieval
-*** Schema
-   #+CAPTION: ER Diagram
-   #+Name: er
-   [[https://drive.google.com/open?id%3D0B6LLRcwXMzt8N3RzZGVkb0NpUDA][ER Diagram]]
-*** APIs
-    [[https://github.com/vlead/dataservice/wiki/Public-APIs][API Documentation]]
-
-* Implementation
-* Test Cases
-* Design discussions
- + Following reviews/points were discussed in the meeting held on
-   2015-07-31:
-  - Running status of a lab/experiment (indicating its health) should
-    also be captured. This should come as a feedback from an outside
-    user or from the Q/A team.
-
-  - =Compatibility of technologies= in the =Requirements= section
-    should be explained more clearly.
-
-  - Analytics and outreach activities for a particular lab should also
-    be reflected.
-
-  - Discussion was held and team members were encouraged to look for a
-    solution (essentially a program) that can generate basic HTML
-    template from the ER diagram itself.
-  
- + Following points were discussed in the meeting held on 2015-08-07:
-  - A data model should be published that explains about actual data
-    and how it is organized.
-
-  - Integrity constraints should also be mentioned. (ex. same lab can't
-   be from different institutes.)
-
-  - Add Mnemonic as a column in lab.
-
-  - Model for all the four layers should be documented.
-
-  - Values of Ids of institutes and disciplines should be mentioned in
-    the model.
-
-  - How REST API is mapped to Python API should also be documented.
-
-  - Batch update operation should also be provided in the dashboard.    
-* Releases
-** Backlog
-   1. There are 19 screens to be built. 
-      + Main Page
-      + List of instances of an Entity
-      + Detailed view 
-      + Update view
-   2. LDU operations
-      + list, detailed and update views for each entity.
-      + There are 6 entities - lab, experiment, developer, technologies,
-        institutes and disciplines
-   3. Controller Framework - applying Filters, etc.
-   4. Styling
-   5. Learning relevant technologies
-
-** 
-
-**  V0.0.1-alpha
-
-    |------------------+-----------------------------------------+----------------+---------------------|
-    | Deadline         | Deliverable                             | Resources      | TODO                |
-    |                  |                                         | (Person Hours) |                     |
-    |------------------+-----------------------------------------+----------------+---------------------|
-    | [2015-08-05 Wed] | + Current DataService APIs              | 100            | Backbonejs.org      |
-    |                  | - Apply new schema and migration script | Thirumal       | Eloquent JavaScript |
-    |                  | - API to list labs                      | Anon           |                     |
-    |                  | - API to list experiments of lab        | Khushpreet     |                     |
-    |                  |                                         | Ambika         |                     |
-    |                  | + Dashboard                             | Sripathi       |                     |
-    |                  | - List all the labs                     | Soujanya (50%) |                     |
-    |                  | - Detailed View of a lab                              |                |                     |
-    |                  | - Update a lab                          |                |                     |
-    |                  |                                         |                |                     |
-    |------------------+-----------------------------------------+----------------+---------------------|
-    | [2015-08-12 Wed] |                                         |                |                     |
-    |------------------+-----------------------------------------+----------------+---------------------|
-    | [2015-08-29 Wed] |                                         |                |                     |
-    |------------------+-----------------------------------------+----------------+---------------------|
-    | [2015-08-26 Wed] |                                         |                |                     |
-    |------------------+-----------------------------------------+----------------+---------------------|
-
+* Meeting and decision log
+  |----+------------+------------------------------------+---------------------------------+---------------|
+  |  / |         <> | <>                                 | <>                              | <             |
+  |----+------------+------------------------------------+---------------------------------+---------------|
+  | No |       Date | Decisions                          | Action items                    | Participants  |
+  |----+------------+------------------------------------+---------------------------------+---------------|
+  |  1 | 2016-01-29 | 1. Dashboard can talk to multiple  | 1. Proper requirements in terms | Pr. Choppella |
+  |    |            | services. Eg. analytics can come   | of data-model, roles, users,    | Thirumal      |
+  |    |            | from analytics service             | features, work-flows, user      | Priya         |
+  |    |            |                                    | interaction model and           | Saurabh       |
+  |    |            | 2. Most of the dashboard data      | wire-frames. -- Saurabh (TBD)   | Madhavi       |
+  |    |            | would be stored by dataservice     |                                 |               |
+  |    |            | and would be accessed via REST API | 2. After requirements are       |               |
+  |    |            |                                    | finalized, which features would |               |
+  |    |            | Validation of data should be       | be supported in which release / |               |
+  |    |            | performed by dataservice.          | version would be decided.  A    |               |
+  |    |            |                                    | release plan would be prepared. |               |
+  |    |            | Necessary enchancement in          | -- Saurabh (TBD)                |               |
+  |    |            | dataservice for supporting         |                                 |               |
+  |    |            | user-login, authentication,        |                                 |               |
+  |    |            | authorization, etc. would be       |                                 |               |
+  |    |            | performed by dataservice team.     |                                 |               |
+  |    |            |                                    |                                 |               |
+  |    |            | 3. Existing data-model built for   |                                 |               |
+  |    |            | dataservice would be used.         |                                 |               |
+  |    |            | Data-model will not be modified    |                                 |               |
+  |    |            | on the fly.                        |                                 |               |
+  |    |            |                                    |                                 |               |
+  |    |            | 4. Every field is editable         |                                 |               |
+  |    |            | based on the role.                 |                                 |               |
+  |    |            |                                    |                                 |               |
+  |    |            | 5. We need to release at least     |                                 |               |
+  |    |            | a basic version in production      |                                 |               |
+  |    |            | by 10-April. This is a             |                                 |               |
+  |    |            | hard-deadline.                     |                                 |               |
+  |    |            |                                    |                                 |               |
+  |    |            | 6. ADS service will need           |                                 |               |
+  |    |            | modification to populate           |                                 |               |
+  |    |            | dash-board with relevant           |                                 |               |
+  |    |            | information about running          |                                 |               |
+  |    |            | labs.                              |                                 |               |
+  |----+------------+------------------------------------+---------------------------------+---------------|
+  |    |            |                                    |                                 |               |
