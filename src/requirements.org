@@ -17,8 +17,19 @@
 ** Entities and Entity Sources
    For a more detailed description of entities please refer to
    appropriate sources from where they have been obtained.
-*** Users Entity 
+*** Users Entity
     - Source :: data-service
+    - Users would have to belong to a role
+*** Roles Entity
+    - Source :: Data service
+    - This will used in permissions entity.  Each user would belong to
+      a role.
+*** Permissions Entity
+    - Source :: Data service
+    - This would be matrix which will specify which roles have which
+      permissions on given fields or entities.  Such as whether an
+      admin-role can read/write to institute.id can be looked into
+      this permission entity or permission table. 
 *** Labs Entity
     - Source :: data-service
 *** Developers Entity
@@ -37,18 +48,19 @@
      entity, eg feed-back, cannot be modified then dashboard will also
      not be able to provide editing for corresponding field.
 * Roles (People involved)
+  Roles specify which features are accessible to a particular role.
 *** Deployment Engineer Role
     - Will deploy dashboard on various environment including production.
     - Will be responsible for backup / restore, if required.  Since
       most data is stored by data-service or other such services, only
       logs and short-term session information may need to be backed
       up.
-*** Application Technical Administrator Role
+*** Application Technical Administrator Role (Tech admin)
     - Will have full access to modify any entity in data-model as long
       as corresponding 'Entity Source' allows such modification via a
       published API.  This administrator can also modify lab-ID,
-      institute-ID, public IP of lab, lab FQDN, etc. 
-*** Application Non-Technical Administrator Role
+      institute-ID, public IP of lab, lab FQDN, etc.
+*** Application Non-Technical Administrator Role (App admin)
     - Will have maximum access to modify any entity in data-model as
       long as 'entity source' allows such modification via a published
       API.  Fields which are used for back-end functioning such as
@@ -72,11 +84,13 @@
       administrator.
     - In future it might be possible for lab administrator to use
       dash-board for launching new version of thier lab via ADS.
-*** Guest Role
+*** Guest role (Read-only privileges)
+*** Unauthenticated Role
     - Any un-authenicated user will be treated as Guest.  This can be
       used for accessing login page to authenticate and get access to
       other roles.
 * Users to role mapping
+  User can be mapped to multiple roles
   - VLEAD :: Deployment Engineer Role, Application Technical
              Administrator Role
   - NIC :: Application Non-Technical Administrator Role
@@ -88,7 +102,7 @@
   - Everyone :: Guest Role
 * Features 
 ** Login Feature
-   - Role :: Guest role
+   - Role :: Unauthenticated role
    - Result :: Following results after successful login
      1. Creates session ID for all future actions and determines users
         Role.  
@@ -102,7 +116,7 @@
    - Assumption :: Any number of bad login attempts would be allowed.  
 ** Logout Feature
    - Role :: All authenticated roles (non-Guest)
-   - Result :: Destoys session ID and converts user to Guest Role 
+   - Result :: Destroys session ID and converts user to unauthenticated Role 
    - Depends upon :: [[Login Feature]], Session information
    - Dependents :: None
    - Assumption :: None
@@ -158,21 +172,6 @@
         | !deployment_engineer}                            | Corresponding [[Discipline Administrator Role]]  |
         |                                                  | Corresponding [[Lab Administrator Role]]         |
         |--------------------------------------------------+----------------------------------------------|
-** Re-deploy lab
-   - Role :: Corresponding [[Lab administrator Role]], Corresponding
-             [[Institute administratrator Role]], Corresponding
-             [[Discipline Administrator Role]], [[Application Technical
-             Administrator Role]], 
-   - Result :: Deploys lab on a new Virtual-Instance (VI) using ADS
-               (Auto-deployment service), ADS terminates old instance,
-               Hooks update various DNS, etc. configuration for lab to
-               become accessible publicly.
-   - Depends upon :: [[Login Feature]], Session information, ADS facility
-                     to re-deploy a lab using API
-   - Dependents :: None
-   - Assumptions :: Deployment failures, if any, would be handled by
-                    ADS service.  Dashboard will not check for
-                    deployment failures.
 * Workflow (Task/Action)
 ** Login Workflow
    1. Open http://dashboard.vlabs.ac.in/
